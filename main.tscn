@@ -1,18 +1,19 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://window.gd" type="Script" id=1]
 [ext_resource path="res://ScrollContainer.gd" type="Script" id=2]
 [ext_resource path="res://bitmask.gd" type="Script" id=3]
 [ext_resource path="res://other-uis/macpaint.png" type="Texture" id=4]
-[ext_resource path="res://icon.png" type="Texture" id=5]
-[ext_resource path="res://fonts/Kalam-Regular.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://archive.gd" type="Script" id=7]
-[ext_resource path="res://ColorPickerButton.gd" type="Script" id=8]
-[ext_resource path="res://start_menu.gd" type="Script" id=9]
-[ext_resource path="res://clock.gd" type="Script" id=10]
-[ext_resource path="res://windowlist.gd" type="Script" id=11]
-[ext_resource path="res://minmax.gd" type="Script" id=12]
-[ext_resource path="res://tinycirlce.png" type="Texture" id=13]
+[ext_resource path="res://Write.gd" type="Script" id=5]
+[ext_resource path="res://icon.png" type="Texture" id=6]
+[ext_resource path="res://fonts/Kalam-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Archive.app.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ColorPickerButton.gd" type="Script" id=9]
+[ext_resource path="res://start_menu.gd" type="Script" id=10]
+[ext_resource path="res://clock.gd" type="Script" id=11]
+[ext_resource path="res://windowlist.gd" type="Script" id=12]
+[ext_resource path="res://minmax.gd" type="Script" id=13]
+[ext_resource path="res://tinycirlce.png" type="Texture" id=14]
 
 [sub_resource type="ButtonGroup" id=1]
 
@@ -58,7 +59,7 @@ outline_size = 2
 outline_color = Color( 1, 1, 1, 0.164706 )
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 6 )
+font_data = ExtResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="world" type="Control"]
@@ -73,13 +74,12 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 __meta__ = {
-"_edit_horizontal_guides_": [  ],
+"_edit_horizontal_guides_": [ 331.716 ],
 "_edit_lock_": true,
-"_edit_vertical_guides_": [  ]
+"_edit_vertical_guides_": [ 475.151, 605.377 ]
 }
 
 [node name="bg" type="TextureRect" parent="."]
-modulate = Color( 0.12549, 0.12549, 0.12549, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -223,6 +223,8 @@ caret_blink_speed = 0.65
 caret_position = 0
 
 [node name="Paint" type="WindowDialog" parent="."]
+editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -329,6 +331,8 @@ script = ExtResource( 3 )
 _sections_unfolded = [ "Mouse", "Script" ]
 fg = Color( 1, 1, 1, 1 )
 bg = Color( 0, 0, 0, 1 )
+bg_source = ""
+random_colors = true
 target = ""
 
 [node name="tool" type="GridContainer" parent="Paint/Control"]
@@ -1017,6 +1021,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+script = ExtResource( 5 )
 _sections_unfolded = [ "Margin" ]
 
 [node name="LineEdit" type="LineEdit" parent="Write/Control"]
@@ -1147,7 +1152,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 _sections_unfolded = [ "texture" ]
@@ -1349,7 +1354,6 @@ prefix = ""
 suffix = "x"
 
 [node name="Archive" type="WindowDialog" parent="."]
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1373,337 +1377,7 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Anchor", "Focus", "Popup", "Rect", "Script", "custom_colors", "custom_fonts", "custom_styles", "custom_styles/panel" ]
 minibutton = ""
 
-[node name="Control" type="Control" parent="Archive"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource( 7 )
-_sections_unfolded = [ "Rect" ]
-
-[node name="HSplitContainer" type="HSplitContainer" parent="Archive/Control"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 24.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-split_offset = -500
-collapsed = false
-dragger_visibility = 0
-
-[node name="bookmarks" type="ItemList" parent="Archive/Control/HSplitContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 75.0
-margin_bottom = 336.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-items = [ "/", null, false ]
-select_mode = 1
-allow_reselect = false
-icon_mode = 1
-fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "Margin" ]
-
-[node name="HSplitContainer" type="HSplitContainer" parent="Archive/Control/HSplitContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 87.0
-margin_right = 595.0
-margin_bottom = 336.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-split_offset = 430
-collapsed = false
-dragger_visibility = 2
-
-[node name="miller" type="HBoxContainer" parent="Archive/Control/HSplitContainer/HSplitContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 508.0
-margin_bottom = 336.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 0
-
-[node name="ls1" type="ItemList" parent="Archive/Control/HSplitContainer/HSplitContainer/miller"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 166.0
-margin_bottom = 336.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-items = [ "Item 0", null, false, "Item 1", null, false, "Item 2", null, false ]
-select_mode = 1
-allow_reselect = false
-icon_mode = 1
-fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "Size Flags" ]
-
-[node name="ls2" type="ItemList" parent="Archive/Control/HSplitContainer/HSplitContainer/miller"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 170.0
-margin_right = 336.0
-margin_bottom = 336.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-items = [ "Item 0", null, false, "Item 1", null, false, "Item 2", null, false ]
-select_mode = 1
-allow_reselect = false
-icon_mode = 1
-fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "Size Flags" ]
-
-[node name="ls3" type="ItemList" parent="Archive/Control/HSplitContainer/HSplitContainer/miller"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 340.0
-margin_right = 508.0
-margin_bottom = 336.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-items = [ "Item 0", null, false, "Item 1", null, false, "Item 2", null, false ]
-select_mode = 1
-allow_reselect = false
-icon_mode = 1
-fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "Size Flags" ]
-
-[node name="details" type="Panel" parent="Archive/Control/HSplitContainer/HSplitContainer"]
-editor/display_folded = true
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 438.0
-margin_right = 508.0
-margin_bottom = 336.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-_sections_unfolded = [ "Margin" ]
-
-[node name="ColorRect" type="ColorRect" parent="Archive/Control/HSplitContainer/HSplitContainer/details"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 84.0
-margin_bottom = 360.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color( 1, 1, 1, 0.12549 )
-_sections_unfolded = [ "Size Flags" ]
-
-[node name="Panel" type="Panel" parent="Archive/Control"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 0.0
-rect_min_size = Vector2( 24, 24 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Grow Direction", "Mouse", "Rect", "Size Flags" ]
-
-[node name="Layout" type="HBoxContainer" parent="Archive/Control/Panel"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 0
-
-[node name="Space" type="Control" parent="Archive/Control/Panel/Layout"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 12.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 12, 12 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
-
-[node name="CheckBox" type="CheckBox" parent="Archive/Control/Panel/Layout"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 16.0
-margin_right = 95.0
-margin_bottom = 24.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = true
-action_mode = 0
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Reverse"
-flat = false
-align = 0
-
-[node name="Label" type="Label" parent="Archive/Control/Panel/Layout"]
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 99.0
-margin_top = 8.0
-margin_right = 124.0
-margin_bottom = 22.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Sort"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="OptionButton" type="OptionButton" parent="Archive/Control/Panel/Layout"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 99.0
-margin_right = 194.0
-margin_bottom = 24.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-action_mode = 0
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Changed"
-flat = false
-align = 0
-items = [ "Size", null, false, 3, null, "Created", null, false, 2, null, "Changed", null, false, 1, null, "Name", null, false, 0, null ]
-selected = 2
-
-[node name="Space2" type="Control" parent="Archive/Control/Panel/Layout"]
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 148.0
-margin_right = 160.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 12, 12 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
-
-[node name="Space3" type="Control" parent="Archive/Control/Panel/Layout"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 198.0
-margin_right = 210.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 12, 12 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
+[node name="Control" parent="Archive" instance=ExtResource( 8 )]
 
 [node name="Configure" type="WindowDialog" parent="."]
 editor/display_folded = true
@@ -1777,63 +1451,57 @@ tab_align = 1
 scrolling_enabled = true
 drag_to_rearrange_enabled = false
 
-[node name="CenterContainer" type="CenterContainer" parent="Configure/Control/TabContainer/General"]
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-use_top_left = false
-
-[node name="GridContainer" type="GridContainer" parent="Configure/Control/TabContainer/General/CenterContainer"]
+[node name="Label" type="Label" parent="Configure/Control/TabContainer/General"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 293.0
-margin_top = 162.0
-margin_right = 293.0
-margin_bottom = 162.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-columns = 1
-
-[node name="Label" type="Label" parent="Configure/Control/TabContainer/General/CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 120.0
-margin_bottom = 14.0
+margin_left = 104.0
+margin_top = 187.0
+margin_right = 232.0
+margin_bottom = 201.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "Background patter:"
+text = "Desk pattern:"
+align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Configure/Control/TabContainer/General/CenterContainer/GridContainer"]
+[node name="Label2" type="Label" parent="Configure/Control/TabContainer/General"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 18.0
-margin_right = 120.0
-margin_bottom = 38.0
+margin_left = 104.0
+margin_top = 147.0
+margin_right = 232.0
+margin_bottom = 161.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Desk color:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Configure/Control/TabContainer/General"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 237.0
+margin_top = 135.0
+margin_right = 295.0
+margin_bottom = 169.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -1849,20 +1517,49 @@ flat = false
 align = 1
 color = Color( 0.12549, 0.12549, 0.12549, 1 )
 edit_alpha = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Pause", "Script" ]
+target = "/root/world/bg"
+
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="Configure/Control/TabContainer/General"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 166.0
+margin_top = 207.0
+margin_right = 224.0
+margin_bottom = 241.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 1
+color = Color( 0.12549, 0.12549, 0.12549, 1 )
+edit_alpha = true
+script = ExtResource( 9 )
+_sections_unfolded = [ "Pause", "Script" ]
+target = ""
 
 [node name="TextureRect" type="TextureRect" parent="Configure/Control/TabContainer/General"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 239.0
-margin_top = 206.0
+margin_left = 237.0
+margin_top = 174.0
 margin_right = 247.0
-margin_bottom = 214.0
-rect_min_size = Vector2( 8, 8 )
-rect_scale = Vector2( 16, 16 )
+margin_bottom = 184.0
+rect_min_size = Vector2( 1, 1 )
+rect_scale = Vector2( 8, 8 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -1874,6 +1571,8 @@ script = ExtResource( 3 )
 _sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Rect", "Size Flags", "Theme" ]
 fg = Color( 1, 1, 1, 1 )
 bg = Color( 0, 0, 0, 1 )
+bg_source = "/root/world/Configure/Control/TabContainer/General/ColorPickerButton2"
+random_colors = false
 target = "/root/world/bg"
 
 [node name="Build" type="WindowDialog" parent="."]
@@ -2135,6 +1834,7 @@ _sections_unfolded = [ "Dialog", "Popup" ]
 
 [node name="top_panel" type="PanelContainer" parent="."]
 editor/display_folded = true
+self_modulate = Color( 1, 1, 1, 0.898039 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -2147,7 +1847,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Rect", "Script" ]
+_sections_unfolded = [ "Material", "Rect", "Script", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Left" type="HBoxContainer" parent="top_panel"]
 anchor_left = 0.0
@@ -2190,7 +1893,7 @@ text = "Start"
 flat = true
 align = 1
 items = [  ]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="Center" type="HBoxContainer" parent="top_panel"]
@@ -2233,7 +1936,7 @@ group = null
 text = "now today"
 flat = true
 align = 1
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Size Flags" ]
 
 [node name="Timer" type="Timer" parent="top_panel/Center/clock"]
@@ -2303,6 +2006,9 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Material", "Rect", "Script", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="windowlist" type="VBoxContainer" parent="left_panel"]
 anchor_left = 0.0
@@ -2320,7 +2026,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 1
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Paint" type="Button" parent="left_panel/windowlist"]
@@ -2346,7 +2052,7 @@ group = null
 text = "Paint"
 flat = false
 align = 1
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 _sections_unfolded = [ "Rect", "Script", "icon" ]
 target_window = "/root/world/Paint"
 
@@ -2362,15 +2068,29 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 draw_center = false
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 _sections_unfolded = [ "Axis Stretch", "Patch Margin", "Visibility", "texture" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
-[connection signal="item_activated" from="Archive/Control/HSplitContainer/HSplitContainer/miller/ls1" to="Archive/Control" method="_on_ls1_item_activated"]
-[connection signal="item_activated" from="Archive/Control/HSplitContainer/HSplitContainer/miller/ls2" to="Archive/Control" method="_on_ls2_item_activated"]
-[connection signal="color_changed" from="Configure/Control/TabContainer/General/CenterContainer/GridContainer/ColorPickerButton" to="Configure/Control/TabContainer/General/CenterContainer/GridContainer/ColorPickerButton" method="_on_ColorPickerButton_color_changed"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+stream_paused = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[connection signal="text_changed" from="Write/Control/TextEdit" to="Write/Control" method="_on_TextEdit_text_changed"]
+[connection signal="color_changed" from="Configure/Control/TabContainer/General/ColorPickerButton" to="Configure/Control/TabContainer/General/ColorPickerButton" method="_on_ColorPickerButton_color_changed"]
+[connection signal="color_changed" from="Configure/Control/TabContainer/General/ColorPickerButton2" to="Configure/Control/TabContainer/General/ColorPickerButton2" method="_on_ColorPickerButton_color_changed"]
 [connection signal="timeout" from="top_panel/Center/clock/Timer" to="top_panel/Center/clock" method="_on_Timer_timeout"]

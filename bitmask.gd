@@ -5,12 +5,15 @@ var img = Image.new()
 var itex = ImageTexture.new()
 export var fg = Color(1,1,1)
 export var bg = Color(0,0,0)
+export var bg_source = ""
+export var random_colors = false
 
 
 func _ready():
 	img.create(rect_size.x, rect_size.y, 0, Image.FORMAT_RGB8)
 	randomize()
-	bg = Color(randf(),randf(),randf())
+	if random_colors: bg = Color(randf(),randf(),randf())
+	if random_colors: fg = Color(randf(),randf(),randf())
 	img.fill(bg)
 	itex.create_from_image(img)
 	texture = itex
@@ -40,6 +43,7 @@ func edit(event):
 	if mode == BUTTON_LEFT:
 		img.set_pixel(event.position.x, event.position.y, fg)
 	if mode == BUTTON_RIGHT:
+		if bg_source: bg = get_node(bg_source).color
 		img.set_pixel(event.position.x, event.position.y, bg)
 	img.unlock()
 	itex.create_from_image(img)

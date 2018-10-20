@@ -10,6 +10,7 @@ var is_grabbed = false
 var is_grabbed_for_rotation = false
 export var debug = false
 
+
 func _process(delta):
 	v *= 0.9
 	if v.length() <= just_stop_under: v = Vector2(0,0)
@@ -18,11 +19,6 @@ func _process(delta):
 	r *= 0.99
 	$origin.rect_rotation += r
 	
-#	update()
-#
-#
-#func _draw():
-#	if debug: draw_line( M, M+$origin.rect_position, Color(1,0,1), 1)
 
 
 func _gui_input(event):
