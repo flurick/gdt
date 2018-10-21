@@ -6,6 +6,8 @@ func _ready():
 	
 	get_popup().connect("id_pressed",self,"id_pressed")
 	
+	var f = File.new()
+	
 	for window in get_node("/root/world").get_children():
 		if window is WindowDialog:
 			get_popup().add_item(window.name)

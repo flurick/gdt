@@ -12,4 +12,4 @@ func _on_TextEdit_text_changed():
 	file.open("good_stuff", file.WRITE)
 	file.store_var($TextEdit.text)
 	
-	ResourceSaver.save("good_stuff_to", $TextEdit.text)
+#	ResourceSaver.save("good_stuff_to", $TextEdit.text)

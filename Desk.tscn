@@ -1,0 +1,417 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Desk.gd" type="Script" id=1]
+[ext_resource path="res://bg.gd" type="Script" id=2]
+[ext_resource path="res://Windows.gd" type="Script" id=3]
+[ext_resource path="res://start_menu.gd" type="Script" id=4]
+[ext_resource path="res://clock.gd" type="Script" id=5]
+[ext_resource path="res://btn_status.gd" type="Script" id=6]
+[ext_resource path="res://btn_turn_of.gd" type="Script" id=7]
+[ext_resource path="res://tinycirlce.png" type="Texture" id=8]
+
+[sub_resource type="GDScript" id=5]
+
+script/source = "extends Button
+
+func _ready():
+#	OS.window_fullscreen = true
+	pass
+ 
+func _pressed():
+	OS.window_fullscreen = !OS.window_fullscreen
+
+
+#maybe: fadeout?"
+
+[node name="world" type="Control"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Script", "Visibility" ]
+__meta__ = {
+"_edit_horizontal_guides_": [ 331.716 ],
+"_edit_lock_": true,
+"_edit_vertical_guides_": [ 475.151, 605.377 ]
+}
+
+[node name="bg" type="TextureRect" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch_mode = 2
+script = ExtResource( 2 )
+_sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
+
+[node name="Windows" type="Control" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 3 )
+
+[node name="dock" type="HBoxContainer" parent="Windows"]
+self_modulate = Color( 1, 1, 1, 0.321569 )
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -44.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 24, 24 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 5
+size_flags_vertical = 0
+alignment = 1
+_sections_unfolded = [ "Material", "Rect", "Script", "Size Flags", "Visibility" ]
+
+[node name="windowlist" type="HBoxContainer" parent="Windows/dock"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+_sections_unfolded = [ "Script", "Size Flags", "Visibility" ]
+
+[node name="top_panel" type="PanelContainer" parent="."]
+self_modulate = Color( 1, 1, 1, 0.898039 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 24, 24 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Material", "Rect", "Script", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Left" type="HBoxContainer" parent="top_panel"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 31.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Mouse" ]
+
+[node name="start_menu" type="MenuButton" parent="top_panel/Left"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 41.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+toggle_mode = false
+action_mode = 0
+enabled_focus_mode = 0
+shortcut = null
+group = null
+text = "Start"
+flat = true
+align = 1
+items = [  ]
+script = ExtResource( 4 )
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="Center" type="HBoxContainer" parent="top_panel"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 31.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+_sections_unfolded = [ "Mouse" ]
+
+[node name="clock" type="Button" parent="top_panel/Center"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 466.0
+margin_right = 543.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "now today"
+flat = true
+align = 1
+script = ExtResource( 5 )
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Timer" type="Timer" parent="top_panel/Center/clock"]
+pause_mode = 2
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+_sections_unfolded = [ "Pause" ]
+
+[node name="Right" type="HBoxContainer" parent="top_panel"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 31.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 2
+_sections_unfolded = [ "Mouse" ]
+
+[node name="btn_status" type="Button" parent="top_panel/Right"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 986.0
+margin_right = 1010.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "···"
+flat = true
+align = 1
+script = ExtResource( 6 )
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="PopupPanel_status" type="Panel" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -131.0
+margin_top = 44.0
+margin_right = -9.0
+margin_bottom = 120.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Popup", "Rect" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel_status"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+
+[node name="Label" type="Label" parent="PopupPanel_status/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 19.0
+margin_right = 122.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "v2"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="btn_turn_of" type="Button" parent="PopupPanel_status/VBoxContainer"]
+modulate = Color( 1, 0.713726, 0.713726, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 37.0
+margin_right = 122.0
+margin_bottom = 57.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Turn off"
+flat = false
+align = 1
+script = ExtResource( 7 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="btn_fullscreen" type="Button" parent="PopupPanel_status/VBoxContainer"]
+modulate = Color( 1, 0.713726, 0.713726, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 37.0
+margin_right = 122.0
+margin_bottom = 57.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Fullscreen"
+flat = false
+align = 1
+script = SubResource( 5 )
+_sections_unfolded = [ "Script", "Visibility" ]
+
+[node name="round_corners_bitmap" type="NinePatchRect" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 8 )
+draw_center = false
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+_sections_unfolded = [ "Axis Stretch", "Patch Margin", "Visibility", "texture" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+stream_paused = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="overlay" type="ColorRect" parent="."]
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0, 0, 0, 1 )
+_sections_unfolded = [ "Mouse" ]
+
+[connection signal="timeout" from="top_panel/Center/clock/Timer" to="top_panel/Center/clock" method="_on_Timer_timeout"]

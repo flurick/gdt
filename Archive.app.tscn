@@ -30,7 +30,6 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -42,6 +41,7 @@ collapsed = false
 dragger_visibility = 0
 
 [node name="V" type="VBoxContainer" parent="h"]
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -109,9 +109,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 62.0
 margin_right = 1024.0
-margin_bottom = 576.0
+margin_bottom = 600.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -125,8 +124,8 @@ dragger_visibility = 2
 [node name="MillerColumns" parent="h/h" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 962.0
-margin_bottom = 576.0
+margin_right = 1024.0
+margin_bottom = 600.0
 
 [node name="details" type="Panel" parent="h/h"]
 editor/display_folded = true
@@ -163,6 +162,7 @@ color = Color( 1, 1, 1, 0.12549 )
 _sections_unfolded = [ "Size Flags" ]
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0

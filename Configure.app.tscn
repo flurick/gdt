@@ -1,0 +1,166 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ColorPickerButton.gd" type="Script" id=1]
+[ext_resource path="res://bitmask.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+_sections_unfolded = [ "Mouse", "Rect" ]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 469.0
+margin_top = 233.0
+margin_right = 555.0
+margin_bottom = 367.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 1
+
+[node name="Label" type="Label" parent="CenterContainer/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 86.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Desk pattern:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label2" type="Label" parent="CenterContainer/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 18.0
+margin_right = 86.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Desk color:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="CenterContainer/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 36.0
+margin_right = 86.0
+margin_bottom = 56.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 1
+color = Color( 0.12549, 0.12549, 0.12549, 1 )
+edit_alpha = true
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause", "Script" ]
+target = "/root/world/bg"
+
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="CenterContainer/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 60.0
+margin_right = 86.0
+margin_bottom = 80.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 1
+color = Color( 0.12549, 0.12549, 0.12549, 1 )
+edit_alpha = true
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause", "Script" ]
+target = ""
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 84.0
+margin_right = 86.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 50, 50 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch_mode = 3
+script = ExtResource( 2 )
+_sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Rect", "Size Flags", "Theme" ]
+fg = Color( 1, 1, 1, 1 )
+bg = Color( 0, 0, 0, 1 )
+bg_source = "/root/world/Configure/Control/TabContainer/General/ColorPickerButton2"
+random_colors = false
+
+[connection signal="color_changed" from="CenterContainer/GridContainer/ColorPickerButton" to="CenterContainer/GridContainer/ColorPickerButton" method="_on_ColorPickerButton_color_changed"]
+[connection signal="color_changed" from="CenterContainer/GridContainer/ColorPickerButton2" to="CenterContainer/GridContainer/ColorPickerButton2" method="_on_ColorPickerButton_color_changed"]
