@@ -7,19 +7,27 @@ export var fg = Color(1,1,1)
 export var bg = Color(0,0,0)
 export var bg_source = ""
 export var random_colors = false
-var path_to_bg = "desktop.png"
+var png = "desktop.png"
+
 
 signal texture_changed
 
+
 func _ready():
-	print("load ", path_to_bg, ": ", img.load(path_to_bg))
+	print("load ", png, ": ", img.load(png))
 #	img.create(rect_size.x, rect_size.y, 0, Image.FORMAT_RGB8)
 	randomize()
 	if random_colors: bg = Color(randf(),randf(),randf())
 	if random_colors: fg = Color(randf(),randf(),randf())
 #	img.fill(bg)
-#	itex.create_from_image(img)
-#	texture = itex
+	itex.create_from_image(img)
+	itex.flags = 0
+	texture = itex
+	
+	rect_scale.x = get_parent().rect_size.x / img.get_size().x
+	rect_scale.y = rect_scale.x
+	
+	get_node("../Label").text = png
 
 #	if get_node(target):
 #		get_node(target).texture = texture
@@ -43,11 +51,8 @@ func _gui_input(event):
 func edit(event):
 
 	img.lock()
-	if mode == BUTTON_LEFT:
-		img.set_pixel(event.position.x, event.position.y, fg)
-	if mode == BUTTON_RIGHT:
-		if bg_source: bg = get_node(bg_source).color
-		img.set_pixel(event.position.x, event.position.y, bg)
+	if mode == BUTTON_LEFT:   img.set_pixel(event.position.x, event.position.y, fg)
+	if mode == BUTTON_RIGHT:  img.set_pixel(event.position.x, event.position.y, bg)
 	img.unlock()
 	itex.create_from_image(img)
 	itex.flags = 0
@@ -60,3 +65,11 @@ func edit(event):
 	
 #	img.save_png("desktop.png")
 	
+
+
+func _on_ColorPickerButton_color_changed(color):
+	fg = color
+
+
+func _on_ColorPickerButton3_color_changed(color):
+	bg =  color

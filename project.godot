@@ -19,6 +19,10 @@ config/name="godot+util+desktop"
 run/main_scene="res://Desk.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+global="*res://global.gd"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

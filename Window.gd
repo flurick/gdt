@@ -7,7 +7,7 @@ signal req_show_on_top (window)
 var title = "App" setget set_title
 func set_title(arg):
 	title = arg
-	$V/header/center/title.text = arg
+	find_node("title").text = arg
 
 func toggle_visible():
 	visible = !visible
@@ -16,10 +16,22 @@ func _ready():
 	rect_min_size = grid
 #	$V/header.rect_min_size = grid
 	
-	$V/header/left/close.connect("pressed", self, "close")
+	find_node("close").connect("pressed", self, "close")
+
+
+var corner = false
+func corner(event):
+	
+	if event is InputEventMouseButton:
+		match event.button_index:
+			BUTTON_LEFT:  corner = event.pressed
+
+	if event is InputEventMouseMotion:
+		if corner:  rect_size += event.relative
 
 func close():
 	visible = false
+
 
 func _gui_input(event):
 	

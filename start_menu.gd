@@ -1,17 +1,14 @@
 extends MenuButton
 
+signal open(path)
 
 
 func _ready():
-	
 	get_popup().connect("id_pressed",self,"id_pressed")
-	
-	var f = File.new()
-	
-	for window in get_node("/root/world").get_children():
-		if window is WindowDialog:
-			get_popup().add_item(window.name)
+	for file in global.ls().files:
+		if file.match("*app.tscn"):
+			get_popup().add_item(file)
 
 
 func id_pressed(id):
-	get_node("/root/world").get_node( get_popup().get_item_text(id) ).show()
+	emit_signal("open", get_popup().get_item_text(id))

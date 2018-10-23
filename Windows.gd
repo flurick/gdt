@@ -22,7 +22,7 @@ func open(app_tscn):
 #		w.add_child(l)
 	
 	print( rect_size )
-	w.rect_position = Vector2(500,500)#rect_size*0.5 #
+	w.rect_position = rect_size*0.5 #Vector2(500,500)#
 	
 	var dock_icon = Button.new() 
 	dock_icon.connect("pressed", w, "toggle_visible")
@@ -35,3 +35,7 @@ func open(app_tscn):
 func _ready():
 	open("Configure.app.tscn")
 	open("Archive.app.tscn")
+
+
+func _on_start_menu_open(path):
+	open(path)

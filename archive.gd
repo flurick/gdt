@@ -51,7 +51,7 @@ func lscol_dynamic(src_col, path):
 	new_col.connect("item_selected",  self, "lscon_dynamic_external", [new_col])
 	
 	#ls
-	var lst = ls(path)
+	var lst = global.ls(path)
 	#folders
 	for dir in lst.dirs:
 		if path[-1] != "/": 
@@ -63,25 +63,6 @@ func lscol_dynamic(src_col, path):
 	for file in lst.files:
 		new_col.add_item(str(file))
 		new_col.set_item_metadata( new_col.get_item_count()-1, str(path,file)) #set metadata for this last item
-
-
-
-
-
-func ls(path):
-	var dir = Directory.new()
-	var dirs = []
-	var files = []
-	if path and dir.open(path) == OK:
-		dir.list_dir_begin(true, true)
-		var file_name = dir.get_next()
-		while (file_name != ""):
-			if dir.current_is_dir():
-				dirs.append(file_name)
-			else:
-				files.append(file_name)
-			file_name = dir.get_next()
-	return {"path":path, "dirs":dirs, "files":files}
 
 
 func _on_bookmarks_item_activated(index):

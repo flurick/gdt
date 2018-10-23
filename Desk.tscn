@@ -4,12 +4,12 @@
 [ext_resource path="res://bg.gd" type="Script" id=2]
 [ext_resource path="res://Windows.gd" type="Script" id=3]
 [ext_resource path="res://start_menu.gd" type="Script" id=4]
-[ext_resource path="res://clock.gd" type="Script" id=5]
+[ext_resource path="res://Clock.widget.tscn" type="PackedScene" id=5]
 [ext_resource path="res://btn_status.gd" type="Script" id=6]
 [ext_resource path="res://btn_turn_of.gd" type="Script" id=7]
 [ext_resource path="res://tinycirlce.png" type="Texture" id=8]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=1]
 
 script/source = "extends Button
 
@@ -58,6 +58,7 @@ script = ExtResource( 2 )
 _sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
 [node name="Windows" type="Control" parent="."]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -185,38 +186,10 @@ size_flags_vertical = 1
 alignment = 1
 _sections_unfolded = [ "Mouse" ]
 
-[node name="clock" type="Button" parent="top_panel/Center"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="clock" parent="top_panel/Center" instance=ExtResource( 5 )]
 margin_left = 466.0
 margin_right = 543.0
-margin_bottom = 24.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 0
-size_flags_vertical = 3
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "now today"
-flat = true
-align = 1
-script = ExtResource( 5 )
-_sections_unfolded = [ "Size Flags" ]
-
-[node name="Timer" type="Timer" parent="top_panel/Center/clock"]
-pause_mode = 2
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = true
-_sections_unfolded = [ "Pause" ]
+margin_bottom = 20.0
 
 [node name="Right" type="HBoxContainer" parent="top_panel"]
 anchor_left = 0.0
@@ -270,9 +243,9 @@ anchor_bottom = 0.0
 margin_left = -131.0
 margin_top = 44.0
 margin_right = -9.0
-margin_bottom = 120.0
+margin_bottom = 154.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -284,6 +257,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 3.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -297,21 +271,48 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 19.0
+margin_top = 17.0
 margin_right = 122.0
-margin_bottom = 33.0
+margin_bottom = 48.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "v2"
+text = "180921
+"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="btn_fullscreen" type="Button" parent="PopupPanel_status/VBoxContainer"]
+modulate = Color( 1, 0.713726, 0.713726, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 52.0
+margin_right = 122.0
+margin_bottom = 72.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Fullscreen"
+flat = false
+align = 1
+script = SubResource( 1 )
+_sections_unfolded = [ "Script", "Visibility" ]
 
 [node name="btn_turn_of" type="Button" parent="PopupPanel_status/VBoxContainer"]
 modulate = Color( 1, 0.713726, 0.713726, 1 )
@@ -319,9 +320,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 37.0
+margin_top = 76.0
 margin_right = 122.0
-margin_bottom = 57.0
+margin_bottom = 96.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -338,32 +339,6 @@ flat = false
 align = 1
 script = ExtResource( 7 )
 _sections_unfolded = [ "Visibility" ]
-
-[node name="btn_fullscreen" type="Button" parent="PopupPanel_status/VBoxContainer"]
-modulate = Color( 1, 0.713726, 0.713726, 1 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 37.0
-margin_right = 122.0
-margin_bottom = 57.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Fullscreen"
-flat = false
-align = 1
-script = SubResource( 5 )
-_sections_unfolded = [ "Script", "Visibility" ]
 
 [node name="round_corners_bitmap" type="NinePatchRect" parent="."]
 modulate = Color( 0, 0, 0, 1 )
@@ -414,4 +389,4 @@ size_flags_vertical = 1
 color = Color( 0, 0, 0, 1 )
 _sections_unfolded = [ "Mouse" ]
 
-[connection signal="timeout" from="top_panel/Center/clock/Timer" to="top_panel/Center/clock" method="_on_Timer_timeout"]
+[connection signal="open" from="top_panel/Left/start_menu" to="Windows" method="_on_start_menu_open"]
