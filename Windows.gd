@@ -12,17 +12,18 @@ func open(app_tscn):
 	add_child(w)
 	if load(app_tscn):
 		var app = load(app_tscn).instance()
-		app.margin_top = 40 #todo: insert into window as container instead of pusinh it in as a child overlowind and stuff 
-		w.add_child(app)
+		w.find_node("app_container").add_child(app)
 		w.title = app_tscn
+		w.rect_position = OS.window_size*0.5 #todo: this is weird, no react_size at all on creation? 
 	else:
 		print("fail: ",app_tscn)
 #		var l = Label.new()
 #		l.text = app_tscn
 #		w.add_child(l)
 	
-	print( rect_size )
-	w.rect_position = rect_size*0.5 #Vector2(500,500)#
+#	call_deferred( "print", rect_size.x )
+#	print( name, " rect_size ", rect_size, OS.window_size )
+	#w.rect_position = rect_size*0.5 #Vector2(500,500)#
 	
 	var dock_icon = Button.new() 
 	dock_icon.connect("pressed", w, "toggle_visible")
@@ -35,6 +36,7 @@ func open(app_tscn):
 func _ready():
 	open("Configure.app.tscn")
 	open("Archive.app.tscn")
+	open("Git.app.tscn")
 
 
 func _on_start_menu_open(path):

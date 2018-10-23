@@ -127,6 +127,7 @@ alignment = 0
 _sections_unfolded = [ "custom_constants" ]
 
 [node name="header" type="Control" parent="V"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -321,7 +322,7 @@ size_flags_vertical = 1
 color = Color( 0.843137, 0.843137, 0.843137, 1 )
 _sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
 
-[node name="Container" type="Container" parent="V"]
+[node name="app_container" type="Container" parent="V"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -330,7 +331,7 @@ margin_top = 41.0
 margin_right = 380.0
 margin_bottom = 162.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
