@@ -13,6 +13,7 @@ func open(app_tscn):
 	if load(app_tscn):
 		var app = load(app_tscn).instance()
 		w.find_node("app_container").add_child(app)
+#		w.find_node("app_container").rect_min_size = app.get_child(0).rect_size
 		w.title = app_tscn
 		w.rect_position = OS.window_size*0.5 #todo: this is weird, no react_size at all on creation? 
 	else:

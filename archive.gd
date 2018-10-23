@@ -8,7 +8,7 @@ onready var miller = get_node("h/h/MillerColumns")
 
 
 func _ready():
-	lscol_dynamic(null, find_node("bookmarks").get_item_text(0))
+	lscol_dynamic(null, "/home/"+OS.get_user_data_dir().split("/")[2] )
 	
 
 

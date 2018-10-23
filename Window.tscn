@@ -127,7 +127,6 @@ alignment = 0
 _sections_unfolded = [ "custom_constants" ]
 
 [node name="header" type="Control" parent="V"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -163,8 +162,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 2.0
-margin_right = 378.0
+margin_left = 171.0
+margin_right = 208.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 24, 24 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -184,7 +183,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "App sadf alksjf lköajsdf  sdafasdf asdf asdf asdf asdf adfdf "
+text = "App"
 flat = true
 align = 1
 _sections_unfolded = [ "Rect", "custom_colors", "custom_styles" ]
