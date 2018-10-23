@@ -43,3 +43,9 @@ func scan_dir(path):
 	return files
 
 
+
+func sh(command, args=[]):
+	var err = []
+	var output = []
+	err = OS.execute(command, PoolStringArray(args), true, output)
+	return {"output":output[0], "err":err}

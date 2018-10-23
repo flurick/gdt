@@ -12,7 +12,7 @@ func open(app_tscn):
 	add_child(w)
 	if load(app_tscn):
 		var app = load(app_tscn).instance()
-		app.margin_top = 40
+		app.margin_top = 40 #todo: insert into window as container instead of pusinh it in as a child overlowind and stuff 
 		w.add_child(app)
 		w.title = app_tscn
 	else:
