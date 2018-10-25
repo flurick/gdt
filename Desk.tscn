@@ -4,7 +4,7 @@
 [ext_resource path="res://bg.gd" type="Script" id=2]
 [ext_resource path="res://Windows.gd" type="Script" id=3]
 [ext_resource path="res://start_menu.gd" type="Script" id=4]
-[ext_resource path="res://Clock.widget.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Controls/Clock.widget.tscn" type="PackedScene" id=5]
 [ext_resource path="res://btn_status.gd" type="Script" id=6]
 [ext_resource path="res://btn_turn_of.gd" type="Script" id=7]
 [ext_resource path="res://tinycirlce.png" type="Texture" id=8]
@@ -192,7 +192,7 @@ size_flags_vertical = 1
 alignment = 1
 _sections_unfolded = [ "Mouse" ]
 
-[node name="clock" parent="top_panel/Center" instance=ExtResource( 5 )]
+[node name="Clock" parent="top_panel/Center" instance=ExtResource( 5 )]
 margin_left = 473.0
 margin_right = 550.0
 margin_bottom = 20.0
