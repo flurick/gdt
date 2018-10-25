@@ -1,0 +1,599 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Control
+
+func _ready():
+	pass
+
+
+func _on_Go_pressed():
+	$Timer.paused = !$Timer.paused
+
+func _on_Timer_timeout():
+	get_tree().call_group(\"tape\", \"step\")
+"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends HSlider
+
+func _ready():
+	pass
+
+func step():
+	value += 1"
+
+[node name="Control" type="Control"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -2.0
+margin_bottom = -2.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+stream_paused = false
+mix_target = 0
+bus = "Master"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -5.0
+margin_bottom = -5.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+
+[node name="Tapes" type="Control" parent="CenterContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 364.0
+margin_top = 220.0
+margin_right = 659.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 295, 160 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = SubResource( 1 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Tapes"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Tapes/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 295.0
+margin_bottom = 25.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="Button2" type="Button" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 32.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "rec"
+flat = false
+align = 1
+_sections_unfolded = [ "Rect" ]
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer" groups=[
+"tape",
+]]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 36.0
+margin_right = 295.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 200, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 300.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/Tapes/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 29.0
+margin_right = 295.0
+margin_bottom = 54.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="Button2" type="Button" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer2"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 32.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "rec"
+flat = false
+align = 1
+_sections_unfolded = [ "Rect" ]
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer2" groups=[
+"tape",
+]]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 36.0
+margin_right = 295.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 300.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+script = SubResource( 2 )
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/Tapes/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 58.0
+margin_right = 295.0
+margin_bottom = 83.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="Button2" type="Button" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer3"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 32.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "rec"
+flat = false
+align = 1
+_sections_unfolded = [ "Rect" ]
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer3" groups=[
+"tape",
+]]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 36.0
+margin_right = 295.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 300.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CenterContainer/Tapes/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 87.0
+margin_right = 295.0
+margin_bottom = 112.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="Button2" type="Button" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer4"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 32.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "rec"
+flat = false
+align = 1
+_sections_unfolded = [ "Rect" ]
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/Tapes/VBoxContainer/HBoxContainer4" groups=[
+"tape",
+]]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 36.0
+margin_right = 295.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 300.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="Go" type="Button" parent="CenterContainer/Tapes"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -58.0
+margin_top = -39.0
+margin_right = 57.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Go"
+flat = false
+align = 1
+
+[node name="Timer" type="Timer" parent="CenterContainer/Tapes"]
+process_mode = 1
+wait_time = 0.1
+one_shot = false
+autostart = false
+
+[node name="Sample" type="HBoxContainer" parent="."]
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -50.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="OptionButton" type="OptionButton" parent="Sample"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+action_mode = 0
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Item 0"
+flat = false
+align = 0
+items = [ "Item 0", null, false, -1, null, "Item 1", null, false, -1, null, "Item 2", null, false, -1, null ]
+selected = 0
+_sections_unfolded = [ "Rect" ]
+
+[node name="Button" type="Button" parent="Sample"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_right = 254.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = ">"
+flat = false
+align = 1
+_sections_unfolded = [ "Rect" ]
+
+[node name="HSlider" type="HSlider" parent="Sample"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 258.0
+margin_right = 1024.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="ColorRect" type="ColorRect" parent="Sample/HSlider"]
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_left = 126.0
+margin_right = 127.0
+rect_min_size = Vector2( 1, 1 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 1 )
+_sections_unfolded = [ "Rect", "Visibility" ]
+
+[node name="ColorRect2" type="ColorRect" parent="Sample/HSlider"]
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_left = 208.0
+margin_right = 209.0
+rect_min_size = Vector2( 1, 1 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 1 )
+_sections_unfolded = [ "Rect", "Visibility" ]
+
+[node name="ColorRect3" type="ColorRect" parent="Sample/HSlider"]
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_left = 363.0
+margin_right = 364.0
+rect_min_size = Vector2( 1, 1 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 1 )
+_sections_unfolded = [ "Rect", "Visibility" ]
+
+[node name="ColorRect4" type="ColorRect" parent="Sample/HSlider"]
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_left = 311.0
+margin_right = 312.0
+rect_min_size = Vector2( 1, 1 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 1 )
+_sections_unfolded = [ "Rect", "Visibility" ]
+
+[connection signal="pressed" from="CenterContainer/Tapes/Go" to="CenterContainer/Tapes" method="_on_Go_pressed"]
+[connection signal="timeout" from="CenterContainer/Tapes/Timer" to="CenterContainer/Tapes" method="_on_Timer_timeout"]

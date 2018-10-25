@@ -51,7 +51,6 @@ func add_col():
 	var new_node = ItemList.new() 
 	new_node.select_mode = ItemList.SELECT_MULTI
 	new_node.set_script( load(\"res://ItemListTweak.gd\") )
-	randomize()
 	new_node.size_flags_horizontal = SIZE_EXPAND_FILL
 	new_node.size_flags_vertical = SIZE_EXPAND_FILL
 	new_node.rect_min_size = min_column_rect

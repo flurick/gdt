@@ -7,27 +7,35 @@ export var fg = Color(1,1,1)
 export var bg = Color(0,0,0)
 export var bg_source = ""
 export var random_colors = false
-var png = "desktop.png"
+export var png = ""
 
 
-signal texture_changed
+signal texture_changed()
 
 
 func _ready():
-	print("load ", png, ": ", img.load(png))
-#	img.create(rect_size.x, rect_size.y, 0, Image.FORMAT_RGB8)
+	
 	randomize()
 	if random_colors: bg = Color(randf(),randf(),randf())
 	if random_colors: fg = Color(randf(),randf(),randf())
-#	img.fill(bg)
+	
+	var f = File.new()
+	if f.file_exists(png):
+		img.load(png)
+	else:
+		img.create(rect_size.x, rect_size.y, 0, Image.FORMAT_RGB8)
+		img.fill( ColorN("grey") )
+	
 	itex.create_from_image(img)
 	itex.flags = 0
 	texture = itex
+#
+#	rect_scale.x = rect_scale.x
+#	if img.get_size().x != 0:
+#		rect_scale.x = get_parent().rect_size.x / img.get_size().x
+#	rect_scale.y = rect_scale.x
 	
-	rect_scale.x = get_parent().rect_size.x / img.get_size().x
-	rect_scale.y = rect_scale.x
-	
-	get_node("../Label").text = png
+#	get_node("../Label").text = png
 
 #	if get_node(target):
 #		get_node(target).texture = texture
@@ -48,8 +56,12 @@ func _gui_input(event):
 		edit(event)
 
 #export var target = ""
-func edit(event):
 
+#var old_img = img.data
+func edit(event):
+	
+#	old_img = img.data
+	
 	img.lock()
 	if mode == BUTTON_LEFT:   img.set_pixel(event.position.x, event.position.y, fg)
 	if mode == BUTTON_RIGHT:  img.set_pixel(event.position.x, event.position.y, bg)
@@ -58,13 +70,14 @@ func edit(event):
 	itex.flags = 0
 	texture = itex
 	
-	emit_signal("texture_changed")
 
 #	if get_node(target):
 #		get_node(target).texture = texture
 	
-#	img.save_png("desktop.png")
-	
+#	if img.data != old_img:
+#	img.save_png(png)
+	emit_signal("texture_changed")
+#	get_tree().call_group("desk", "reload")
 
 
 func _on_ColorPickerButton_color_changed(color):
@@ -73,3 +86,6 @@ func _on_ColorPickerButton_color_changed(color):
 
 func _on_ColorPickerButton3_color_changed(color):
 	bg =  color
+
+func _exit_tree():
+	img.save_png(png)

@@ -36,8 +36,8 @@ func open(app_tscn):
 
 func _ready():
 	open("Configure.app.tscn")
-	open("Archive.app.tscn")
-	open("Git.app.tscn")
+#	open("Archive.app.tscn")
+#	open("Git.app.tscn")
 
 
 func _on_start_menu_open(path):

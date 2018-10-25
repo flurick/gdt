@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Desk.gd" type="Script" id=1]
 [ext_resource path="res://bg.gd" type="Script" id=2]
@@ -9,7 +9,14 @@
 [ext_resource path="res://btn_turn_of.gd" type="Script" id=7]
 [ext_resource path="res://tinycirlce.png" type="Texture" id=8]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="StyleBoxEmpty" id=1]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+
+[sub_resource type="GDScript" id=2]
 
 script/source = "extends Button
 
@@ -42,7 +49,9 @@ __meta__ = {
 "_edit_vertical_guides_": [ 475.151, 605.377 ]
 }
 
-[node name="bg" type="TextureRect" parent="."]
+[node name="bg" type="TextureRect" parent="." groups=[
+"Desk",
+]]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -119,7 +128,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Material", "Rect", "Script", "Visibility" ]
+custom_styles/panel = SubResource( 1 )
+_sections_unfolded = [ "Material", "Rect", "Script", "Visibility", "custom_styles" ]
 __meta__ = {
 "_edit_lock_": true
 }
@@ -129,10 +139,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1017.0
-margin_bottom = 31.0
+margin_right = 1024.0
+margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -148,7 +156,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 41.0
-margin_bottom = 24.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 24, 24 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -173,10 +181,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1017.0
-margin_bottom = 31.0
+margin_right = 1024.0
+margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -187,8 +193,8 @@ alignment = 1
 _sections_unfolded = [ "Mouse" ]
 
 [node name="clock" parent="top_panel/Center" instance=ExtResource( 5 )]
-margin_left = 466.0
-margin_right = 543.0
+margin_left = 473.0
+margin_right = 550.0
 margin_bottom = 20.0
 
 [node name="Right" type="HBoxContainer" parent="top_panel"]
@@ -196,10 +202,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1017.0
-margin_bottom = 31.0
+margin_right = 1024.0
+margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -214,9 +218,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 986.0
-margin_right = 1010.0
-margin_bottom = 24.0
+margin_left = 1000.0
+margin_right = 1024.0
+margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -311,7 +315,7 @@ group = null
 text = "Fullscreen"
 flat = false
 align = 1
-script = SubResource( 1 )
+script = SubResource( 2 )
 _sections_unfolded = [ "Script", "Visibility" ]
 
 [node name="btn_turn_of" type="Button" parent="PopupPanel_status/VBoxContainer"]
