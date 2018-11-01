@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Desk.gd" type="Script" id=1]
 [ext_resource path="res://bg.gd" type="Script" id=2]
@@ -6,15 +6,37 @@
 [ext_resource path="res://start_menu.gd" type="Script" id=4]
 [ext_resource path="res://Controls/Clock.widget.tscn" type="PackedScene" id=5]
 [ext_resource path="res://btn_status.gd" type="Script" id=6]
-[ext_resource path="res://btn_turn_of.gd" type="Script" id=7]
-[ext_resource path="res://tinycirlce.png" type="Texture" id=8]
+[ext_resource path="res://version.name.gd" type="Script" id=7]
+[ext_resource path="res://btn_turn_of.gd" type="Script" id=8]
+[ext_resource path="res://tinycirlce.png" type="Texture" id=9]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxFlat" id=3]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
+bg_color = Color( 0.6, 0.6, 0.6, 1 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
 
 [sub_resource type="GDScript" id=2]
 
@@ -52,6 +74,7 @@ __meta__ = {
 [node name="bg" type="TextureRect" parent="." groups=[
 "Desk",
 ]]
+modulate = Color( 0.137255, 0.137255, 0.137255, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -128,7 +151,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 3 )
 _sections_unfolded = [ "Material", "Rect", "Script", "Visibility", "custom_styles" ]
 __meta__ = {
 "_edit_lock_": true
@@ -150,12 +173,29 @@ size_flags_vertical = 1
 alignment = 0
 _sections_unfolded = [ "Mouse" ]
 
+[node name="Space" type="Control" parent="top_panel/Left"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 8.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
 [node name="start_menu" type="MenuButton" parent="top_panel/Left"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 41.0
+margin_left = 12.0
+margin_right = 53.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 24, 24 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -195,7 +235,9 @@ _sections_unfolded = [ "Mouse" ]
 [node name="Clock" parent="top_panel/Center" instance=ExtResource( 5 )]
 margin_left = 473.0
 margin_right = 550.0
-margin_bottom = 20.0
+margin_bottom = 38.0
+size_flags_vertical = 3
+_sections_unfolded = [ "Focus", "Mouse", "Script", "Size Flags" ]
 
 [node name="Right" type="HBoxContainer" parent="top_panel"]
 anchor_left = 0.0
@@ -218,8 +260,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1000.0
-margin_right = 1024.0
+margin_left = 980.0
+margin_right = 1012.0
 margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -232,11 +274,28 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "···"
+text = "· · ·"
 flat = true
 align = 1
 script = ExtResource( 6 )
 _sections_unfolded = [ "Size Flags" ]
+
+[node name="Space2" type="Control" parent="top_panel/Right"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1016.0
+margin_right = 1024.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="PopupPanel_status" type="Panel" parent="."]
 visible = false
@@ -244,63 +303,83 @@ anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -131.0
-margin_top = 44.0
-margin_right = -9.0
-margin_bottom = 154.0
+margin_left = -103.0
+margin_top = 45.0
+margin_right = -5.0
+margin_bottom = 146.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 12
+size_flags_vertical = 12
+_sections_unfolded = [ "Popup", "Rect", "Size Flags" ]
+
+[node name="popuparrow" type="Panel" parent="PopupPanel_status"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 74.0
+margin_top = -11.0
+margin_right = 93.0
+margin_bottom = 8.0
+rect_rotation = 44.9999
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Popup", "Rect" ]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel_status"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 3.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
+size_flags_horizontal = 6
+size_flags_vertical = 3
 alignment = 1
+_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="Label" type="Label" parent="PopupPanel_status/VBoxContainer"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 17.0
-margin_right = 122.0
-margin_bottom = 48.0
+margin_top = 9.0
+margin_right = 98.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 25, 25 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "180921
-"
 align = 1
 valign = 1
+autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+script = ExtResource( 7 )
+_sections_unfolded = [ "Rect" ]
 
 [node name="btn_fullscreen" type="Button" parent="PopupPanel_status/VBoxContainer"]
-modulate = Color( 1, 0.713726, 0.713726, 1 )
+modulate = Color( 0.886275, 1, 0.905882, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 52.0
-margin_right = 122.0
-margin_bottom = 72.0
+margin_top = 38.0
+margin_right = 98.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 25, 25 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -316,17 +395,18 @@ text = "Fullscreen"
 flat = false
 align = 1
 script = SubResource( 2 )
-_sections_unfolded = [ "Script", "Visibility" ]
+_sections_unfolded = [ "Rect", "Script", "Visibility" ]
 
 [node name="btn_turn_of" type="Button" parent="PopupPanel_status/VBoxContainer"]
-modulate = Color( 1, 0.713726, 0.713726, 1 )
+modulate = Color( 1, 0.870588, 0.870588, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 76.0
-margin_right = 122.0
-margin_bottom = 96.0
+margin_top = 67.0
+margin_right = 98.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 25, 25 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -341,8 +421,8 @@ group = null
 text = "Turn off"
 flat = false
 align = 1
-script = ExtResource( 7 )
-_sections_unfolded = [ "Visibility" ]
+script = ExtResource( 8 )
+_sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="round_corners_bitmap" type="NinePatchRect" parent="."]
 modulate = Color( 0, 0, 0, 1 )
@@ -356,7 +436,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 draw_center = false
 patch_margin_left = 5
 patch_margin_top = 5

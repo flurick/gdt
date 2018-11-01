@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Cluster_pad.wav-3b41608f167341dabbb44356e38c7482.sample"
+
+[deps]
+
+source_file="res://Cluster_pad.wav"
+dest_files=[ "res://.import/Cluster_pad.wav-3b41608f167341dabbb44356e38c7482.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

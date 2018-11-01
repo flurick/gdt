@@ -19,7 +19,7 @@ func ls(path="res://"):
 func scan_dir(path):
 	var file_name
 	var files = []
-	var dirs = []
+#	var dirs = []
 	var dir = Directory.new()
 	var error = dir.open(path)
 	
