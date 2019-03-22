@@ -1,7 +1,5 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://ScrollContainerTest.gd" type="Script" id=1]
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
@@ -62,6 +60,17 @@ func add_col():
 
 "
 
+[sub_resource type="GDScript" id=2]
+script/source = "extends ScrollContainer
+
+func scroll_to_right():
+	get_h_scrollbar().value = lerp(get_h_scrollbar().value, get_h_scrollbar().max_value, 0.02)
+#	get_h_scrollbar().value = get_h_scrollbar().max_value
+	
+func scroll_to_bottom():
+	get_v_scrollbar().value = lerp(get_v_scrollbar().value, get_v_scrollbar().max_value, 0.02)
+#	get_v_scrollbar().value = get_v_scrollbar().max_value"
+
 [node name="MillerColumns" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,7 +84,7 @@ color = Color( 0.937255, 0.937255, 0.937255, 1 )
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = SubResource( 2 )
 
 [node name="row" type="HBoxContainer" parent="ScrollContainer"]
 margin_right = 1024.0

@@ -1,40 +1,86 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Window.gd" type="Script" id=1]
-[ext_resource path="res://png/max.png" type="Texture" id=2]
-[ext_resource path="res://png/cross.png" type="Texture" id=3]
+[ext_resource path="res://png/max.png" type="Texture" id=1]
+[ext_resource path="res://png/cross.png" type="Texture" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
-
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
 bg_color = Color( 0.996078, 0.996078, 0.996078, 1 )
-draw_center = true
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
-border_color = Color( 0.8, 0.8, 0.8, 1 )
-border_blend = false
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-corner_detail = 8
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
 shadow_color = Color( 0, 0, 0, 0.0392157 )
 shadow_size = 25
-anti_aliasing = true
-anti_aliasing_size = 1
-_sections_unfolded = [ "Anti Aliasing", "Corner Radius", "Shadow" ]
 
 [sub_resource type="GDScript" id=2]
+script/source = "extends Control
 
+var held = {\"l\":false, \"r\":false, \"m\":false}
+var grid = Vector2(100,100)
+signal req_show_on_top (window)
+
+var title = \"App\" setget set_title
+func set_title(arg):
+	title = arg
+	find_node(\"title\").text = arg
+
+func toggle_visible():
+	visible = !visible
+
+func _ready():
+	rect_min_size = grid
+#	$V/header.rect_min_size = grid
+	
+	find_node(\"close\").connect(\"pressed\", self, \"close\")
+
+
+var corner = false
+func corner(event):
+	
+	if event is InputEventMouseButton:
+		match event.button_index:
+			BUTTON_LEFT:  corner = event.pressed
+
+	if event is InputEventMouseMotion:
+		if corner:  rect_size += event.relative
+
+func close():
+	visible = false
+
+
+func _gui_input(event):
+	
+	
+	#pressed
+	if event is InputEventMouseButton and event.pressed:
+		match event.button_index:
+			BUTTON_LEFT:  emit_signal(\"req_show_on_top\", self)
+			BUTTON_MIDDLE:  pass
+			BUTTON_RIGHT:  pass
+		
+	#held
+	if event is InputEventMouseButton:
+		match event.button_index:
+			BUTTON_LEFT:  held.l = event.pressed
+			BUTTON_MIDDLE:  held.m = event.pressed
+			BUTTON_RIGHT:  held.r = event.pressed
+	
+	#drag
+	if event is InputEventMouseMotion:
+		if held.l:  rect_position += event.relative
+		if held.m:  pass
+		if held.r:  rect_size += event.relative
+	
+	#release
+	if event is InputEventMouseButton and not event.pressed:
+		match event.button_index:
+			BUTTON_LEFT:  if event.control: rect_position = rect_position.snapped(grid)
+			BUTTON_MIDDLE:  pass
+			BUTTON_RIGHT:  if event.control: rect_size = rect_size.snapped(grid)
+
+"
+
+[sub_resource type="GDScript" id=3]
 script/source = "extends Control
 
 signal _gui_input(event)
@@ -50,32 +96,16 @@ func _gui_input(event):
 #			BUTTON_LEFT:  get_parent().held.l = true
 "
 
-[sub_resource type="StyleBoxEmpty" id=3]
-
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [node name="Window" type="Panel"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = -150.0
 margin_top = -71.0
 margin_right = 230.0
 margin_bottom = 91.0
 rect_min_size = Vector2( 50, 50 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 1 )
-_sections_unfolded = [ "Rect", "custom_styles", "custom_styles/panel" ]
+script = SubResource( 2 )
 
 [node name="Corner" type="Control" parent="."]
 editor/display_folded = true
@@ -87,253 +117,119 @@ margin_left = -15.0
 margin_top = -15.0
 margin_right = 15.0
 margin_bottom = 14.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
 mouse_default_cursor_shape = 12
-size_flags_horizontal = 1
-size_flags_vertical = 1
-script = SubResource( 2 )
-_sections_unfolded = [ "Mouse", "Rect" ]
+script = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="Corner"]
 visible = false
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0.0862745, 0.894118, 1, 1 )
-_sections_unfolded = [ "Mouse" ]
 
 [node name="V" type="VBoxContainer" parent="."]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_constants/separation = 0
-alignment = 0
-_sections_unfolded = [ "custom_constants" ]
 
 [node name="header" type="Control" parent="V"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 380.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
-size_flags_vertical = 1
-_sections_unfolded = [ "Mouse", "Rect", "Visibility", "custom_styles/panel" ]
 
 [node name="center" type="HBoxContainer" parent="V/header"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 alignment = 1
-_sections_unfolded = [ "Hint", "Rect" ]
 
 [node name="title" type="Button" parent="V/header/center"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 171.0
 margin_right = 208.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 24, 24 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
 mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 disabled = true
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 text = "App"
 flat = true
-align = 1
-_sections_unfolded = [ "Rect", "custom_colors", "custom_styles" ]
 
 [node name="right" type="HBoxContainer" parent="V/header"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 alignment = 2
-_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="size" type="TextureButton" parent="V/header/right"]
 editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 340.0
 margin_right = 380.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 1 )
 expand = true
 stretch_mode = 3
-_sections_unfolded = [ "Rect", "Size Flags", "Textures" ]
 
 [node name="ColorRect2" type="ColorRect" parent="V/header/right/size"]
 visible = false
 show_behind_parent = true
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 40, 40 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0.690196, 0.788235, 0.894118, 1 )
-_sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="left" type="HBoxContainer" parent="V/header"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
-alignment = 0
-_sections_unfolded = [ "Mouse" ]
 
 [node name="close" type="TextureButton" parent="V/header/left"]
 editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 2 )
 expand = true
 stretch_mode = 3
-_sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="ColorRect" type="ColorRect" parent="V/header/left/close"]
 visible = false
 show_behind_parent = true
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 40, 40 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0.894118, 0.690196, 0.690196, 1 )
-_sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="header_shadow" type="ColorRect" parent="V"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 40.0
 margin_right = 380.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 1, 1 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
-size_flags_vertical = 1
 color = Color( 0.843137, 0.843137, 0.843137, 1 )
-_sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
 
 [node name="app_container" type="Container" parent="V"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 41.0
 margin_right = 380.0
 margin_bottom = 162.0
-rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-_sections_unfolded = [ "Mouse", "Rect", "Size Flags" ]
 
