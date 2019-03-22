@@ -1,0 +1,44 @@
+[gd_scene format=2]
+
+[node name="Chat" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="."]
+editor/display_folded = true
+anchor_right = 1.0
+margin_bottom = 31.0
+rect_clip_content = true
+
+[node name="invite" type="Button" parent="Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 6.0
+margin_top = -10.0
+margin_right = 106.0
+margin_bottom = 10.0
+disabled = true
+text = "Invite to desk"
+
+[node name="close" type="Button" parent="Panel"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -38.0
+text = "x"
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 32.0
+margin_bottom = -24.0
+text = "Hello!"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+

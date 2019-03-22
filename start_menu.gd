@@ -5,7 +5,7 @@ signal open(path)
 
 func _ready():
 	get_popup().connect("id_pressed",self,"id_pressed")
-	for file in global.ls().files:
+	for file in global.ls("res://Apps").files:
 		if file.match("*app.tscn"):
 			get_popup().add_item(file)
 

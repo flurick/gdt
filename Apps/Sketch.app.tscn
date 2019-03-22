@@ -1,0 +1,147 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Control
+
+
+var line
+var active = false
+
+class dab:
+	var pos
+	var size
+	var color
+
+class stroke:
+	var points = []
+
+class layer:
+	var strokes = []
+	var opacity = 1.0
+
+
+var brush = dab.new()
+
+
+func _ready():
+	randomize()
+	brush.size = 30*randf()
+	brush.color = Color(randf(),randf(),randf())
+	
+	$\"../Time\".connect(\"done\",self,\"reset\")
+
+
+func reset():
+	for child in get_children():
+		remove_child(child)
+
+
+func _gui_input(event):
+	
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT: 
+			accept_event()
+			active = event.pressed
+			
+			
+			
+			line = Line2D.new()
+			line.width = brush.size
+			line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+			line.end_cap_mode = Line2D.LINE_CAP_ROUND
+			line.joint_mode = Line2D.LINE_JOINT_ROUND
+			line.default_color = brush.color
+			line.add_point( get_global_mouse_position() )
+			line.add_point( get_global_mouse_position()+Vector2(0,1) )
+			add_child(line)
+	
+	if event is InputEventMouseMotion:
+		if active:
+			line.add_point( get_global_mouse_position() )
+		
+		update()
+
+func _draw():
+	draw_circle( get_global_mouse_position(), brush.size, brush.color.linear_interpolate( Color(0,0,0, 0.8), 0.5) )
+	
+
+
+"
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.121569 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.196078 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends ProgressBar
+
+signal done
+
+func _ready():
+	$Timer.connect(\"timeout\",self,\"tick\")
+
+func tick():
+	value -= 1
+	if value <= 0:
+		emit_signal(\"done\")
+		value = 60*8
+"
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.666667, 0.576471, 0.431373, 1 )
+
+[node name="SketchCanvas" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 5 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+margin_bottom = 49.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 50
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer"]
+margin_right = 76.0
+margin_bottom = 49.0
+text = "Give away"
+
+[node name="Statusbar" type="Label" parent="Panel/HBoxContainer"]
+margin_left = 126.0
+margin_top = 17.0
+margin_right = 213.0
+margin_bottom = 31.0
+text = "Midi device: -"
+align = 1
+valign = 1
+
+[node name="Time" type="ProgressBar" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+max_value = 480.0
+value = 480.0
+percent_visible = false
+script = SubResource( 4 )
+
+[node name="Timer" type="Timer" parent="Time"]
+autostart = true
+

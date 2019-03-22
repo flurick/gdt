@@ -1,0 +1,253 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Controls/MillerColumns.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+var debug = true
+var verbose = false
+onready var miller = get_node(\"h/h/MillerColumns\")
+
+
+
+func _ready():
+	lscol_dynamic(null, \"/home/\"+OS.get_user_data_dir().split(\"/\")[2] )
+
+
+
+func sibling_count():
+	return get_parent().get_child_count()
+
+
+func select_to_open(src_index, src_node):
+	
+	var path_to_open = src_node.get_item_metadata(src_index)
+	
+	var d = Directory.new()
+	if d.dir_exists(path_to_open):
+		miller.del_col_post(src_node.get_index())
+		lscol_dynamic(src_node, path_to_open)
+		miller.set_process(true)
+	elif d.file_exists(path_to_open):
+		pass
+
+
+func lscon_dynamic_external(src_index, src_node):
+	
+	if debug: printt(\"lscon_dynamic_external:\", src_index, src_node)
+	
+	var path_to_open = src_node.get_item_metadata(src_index)
+	
+	var d = Directory.new()
+	if d.dir_exists(path_to_open):
+		miller.del_col_post(src_node.get_index())
+		lscol_dynamic(src_node, path_to_open)
+		miller.set_process(true)
+	elif d.file_exists(path_to_open):
+		OS.shell_open(path_to_open)
+
+
+func lscon_dynamic_external_multi(arg3,src_index, src_node):
+	
+	if debug: printt(\"lscon_dynamic_external:\", src_index, src_node)
+
+	miller.del_col_post(src_node.get_index())
+	lscol_dynamic(src_node, src_node.get_item_metadata(src_index))
+	miller.set_process(true)
+
+
+
+func lscol_dynamic(src_col, path):
+	
+	if debug: printt( \"lscol_dynamic:\", str(src_col), str(path) )
+	
+	var new_col = miller.add_col()
+	new_col.connect(\"item_activated\", self, \"lscon_dynamic_external\", [new_col])
+	new_col.connect(\"item_selected\", self, \"select_to_open\", [new_col])
+	
+	#ls
+	var lst = global.ls(path)
+	#folders
+	for dir in lst.dirs:
+		if path[-1] != \"/\": 
+			path += \"/\"
+		new_col.add_item(str(dir))
+		new_col.set_item_metadata( new_col.get_item_count()-1, str(path,dir)) #set metadata for this last item
+		if verbose: printt(new_col.get_item_count(), str(path,dir))
+	#files
+	for file in lst.files:
+		new_col.add_item(str(file))
+		new_col.set_item_metadata( new_col.get_item_count()-1, str(path,file)) #set metadata for this last item
+
+
+
+func _on_bookmarks_item_activated(index):
+	miller.del_col_post(-1)
+	lscol_dynamic(null, find_node(\"bookmarks\").get_item_text(index))
+
+
+
+func _on_Button_pressed():
+	pass
+
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ItemList
+
+func _ready():
+	add_item(\"tmsu not started\")
+"
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource( 1 )
+
+[node name="h" type="HSplitContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="V" type="VBoxContainer" parent="h"]
+editor/display_folded = true
+margin_right = 50.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="bookmarks" type="ItemList" parent="h/V"]
+margin_right = 50.0
+margin_bottom = 298.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "/home", null, false, "/", null, false ]
+select_mode = 1
+
+[node name="tags" type="ItemList" parent="h/V"]
+margin_top = 302.0
+margin_right = 50.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+select_mode = 1
+script = SubResource( 2 )
+
+[node name="h" type="HSplitContainer" parent="h"]
+margin_left = 62.0
+margin_right = 1024.0
+margin_bottom = 600.0
+split_offset = 430
+dragger_visibility = 2
+
+[node name="MillerColumns" parent="h/h" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 430.0
+margin_bottom = 600.0
+
+[node name="details" type="Panel" parent="h/h"]
+margin_left = 430.0
+margin_right = 962.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="h/h/details"]
+margin_right = 84.0
+margin_bottom = 360.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 1, 1, 0.12549 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+rect_min_size = Vector2( 24, 24 )
+
+[node name="H" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Space" type="Control" parent="Panel/H"]
+margin_right = 12.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 12, 12 )
+
+[node name="Label" type="Label" parent="Panel/H"]
+margin_left = 16.0
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Sort"
+
+[node name="OptionButton" type="OptionButton" parent="Panel/H"]
+margin_left = 45.0
+margin_right = 140.0
+margin_bottom = 24.0
+hint_tooltip = "Sort by"
+text = "Changed"
+items = [ "Size", null, false, 3, null, "Created", null, false, 2, null, "Changed", null, false, 1, null, "Name", null, false, 0, null ]
+selected = 2
+
+[node name="CheckBox" type="CheckBox" parent="Panel/H"]
+margin_left = 144.0
+margin_right = 168.0
+margin_bottom = 24.0
+hint_tooltip = "Reverse"
+pressed = true
+action_mode = 0
+
+[node name="Space2" type="Control" parent="Panel/H"]
+margin_left = 172.0
+margin_right = 184.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 12, 12 )
+
+[node name="Space3" type="Control" parent="Panel/H"]
+margin_left = 188.0
+margin_right = 200.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 12, 12 )
+
+[node name="H2" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Panel/H2"]
+margin_left = 464.0
+margin_right = 522.0
+margin_bottom = 24.0
+
+[node name="Button" type="Button" parent="Panel/H2"]
+margin_left = 526.0
+margin_right = 559.0
+margin_bottom = 24.0
+text = "Tag"
+
+[node name="H3" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Panel/H3"]
+margin_left = 996.0
+margin_top = 5.0
+margin_right = 1008.0
+margin_bottom = 19.0
+text = "···"
+
+[node name="Space4" type="Control" parent="Panel/H3"]
+margin_left = 1012.0
+margin_right = 1024.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 12, 12 )
+
+[connection signal="item_activated" from="h/V/bookmarks" to="." method="_on_bookmarks_item_activated"]
+[connection signal="item_selected" from="h/V/bookmarks" to="." method="_on_bookmarks_item_selected"]
+[connection signal="pressed" from="Panel/H2/Button" to="." method="_on_Button_pressed"]

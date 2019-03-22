@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Polygon2D
+
+var speed = 1
+var acc = 1
+var speed_rot = 1
+var action_in_frame = 0
+var v = Vector2(0,0)
+var input = Vector2(0,0)
+
+
+func _process(delta):
+	
+	if Input.is_key_pressed(KEY_A):input.x -= acc
+	if Input.is_key_pressed(KEY_D):input.x += acc
+	if Input.is_key_pressed(KEY_W):input.y -= acc
+	if Input.is_key_pressed(KEY_S):input.y += acc
+#	input_dir.x = Input.get_action_strength(\"\") - Input.get_action_strength(\"ui_left\")
+#	input_dir.y = Input.get_action_strength(\"ui_down\") - Input.get_action_strength(\"ui_up\")
+#	input_dir.z = Input.get_action_strength(\"turn_cw\") - Input.get_action_strength(\"turn_ccw\")
+#	var input_angle = Vector2( Input.get_joy_axis(0,2), Input.get_joy_axis(0,3) )
+	
+#	action_in_frame = input_dir.length()
+	
+	position += input*speed
+	input *= 0.9
+	
+	var m = get_global_mouse_position()
+	look_at( m )
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Polygon2D
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="player" type="Polygon2D" parent="."]
+color = Color( 0.298039, 0.298039, 0.298039, 1 )
+offset = Vector2( -15.83, 0 )
+polygon = PoolVector2Array( 50, 0, -20, 20, 0, 0, -20, -20 )
+script = SubResource( 3 )
+
+[node name="turret" type="Polygon2D" parent="."]
+position = Vector2( 515.588, 326.218 )
+scale = Vector2( 1.02977, 0.990282 )
+color = Color( 0.760784, 0.0941176, 0.721569, 1 )
+polygon = PoolVector2Array( -15.1371, -26.4748, 43.1284, -16.3767, 62.5502, 3.81961, 43.1284, 24.0159, -16.8776, 33.4218, -5.42615, 3.81961 )
+script = SubResource( 2 )
+

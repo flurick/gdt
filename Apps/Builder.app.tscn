@@ -1,0 +1,232 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://fonts/Kalam-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://grid.png" type="Texture" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.227451, 0.188235, 0.317647, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.937255, 0.937255, 0.937255, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color( 0, 0, 0, 0.0784314 )
+shadow_size = 10
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Control
+
+func _ready():
+	pass
+
+func get_drag_data(position):
+	var mydata = self.duplicate()
+	set_drag_preview( self)
+	return mydata
+"
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0.0156863, 1, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Panel
+
+
+func can_drop_data(position, data):
+    return true #typeof(data) == TYPE_ and data.has('color')
+
+func drop_data(position, data):
+#	color = data['color']
+	add_child(data)
+	data.rect_position = position.snapped( Vector2(50,50) )
+	data.set_script( Script.new() )
+
+"
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="bg" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+editor/display_folded = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="HBoxContainer"]
+editor/display_folded = true
+margin_right = 338.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 24, 24 )
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "func time (int):"
+
+[node name="Label" type="Label" parent="HBoxContainer/TextEdit"]
+modulate = Color( 1, 1, 1, 0.0862745 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "input"
+align = 1
+valign = 2
+
+[node name="TextEdit2" type="TextEdit" parent="HBoxContainer"]
+editor/display_folded = true
+margin_left = 342.0
+margin_right = 680.0
+margin_bottom = 600.0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "secs: %60
+mins: /60%60
+hour: /60/60%24
+days: /60/60/24
+text: days
+	     hrs
+		 mins
+		 secs
+		"
+
+[node name="Label2" type="Label" parent="HBoxContainer/TextEdit2"]
+modulate = Color( 1, 1, 1, 0.0862745 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "definition"
+align = 1
+valign = 2
+
+[node name="TextEdit3" type="TextEdit" parent="HBoxContainer"]
+editor/display_folded = true
+margin_left = 684.0
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "$Time.text: text"
+
+[node name="Label3" type="Label" parent="HBoxContainer/TextEdit3"]
+modulate = Color( 1, 1, 1, 0.0862745 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "output"
+align = 1
+valign = 2
+
+[node name="ItemList" type="ItemList" parent="."]
+visible = false
+margin_left = 875.0
+margin_top = 66.0
+margin_right = 976.0
+margin_bottom = 185.0
+
+[node name="title" type="LineEdit" parent="."]
+anchor_right = 1.0
+margin_bottom = 92.0
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "MyApp"
+align = 1
+
+[node name="Toolbox" type="Panel" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -123.0
+margin_right = 113.0
+margin_bottom = 181.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="Button" type="Button" parent="Toolbox"]
+margin_left = 39.0
+margin_top = 53.0
+margin_right = 103.0
+margin_bottom = 90.0
+text = "Button"
+script = SubResource( 5 )
+
+[node name="Slider" type="HSlider" parent="Toolbox"]
+margin_left = 45.0
+margin_top = 113.0
+margin_right = 109.0
+margin_bottom = 150.0
+ticks_on_borders = true
+script = SubResource( 5 )
+
+[node name="CheckBox" type="CheckBox" parent="Toolbox"]
+margin_left = 39.0
+margin_top = 142.0
+margin_right = 103.0
+margin_bottom = 179.0
+pressed = true
+script = SubResource( 5 )
+
+[node name="CheckButton" type="CheckButton" parent="Toolbox"]
+margin_left = 33.0
+margin_top = 176.0
+margin_right = 109.0
+margin_bottom = 216.0
+pressed = true
+script = SubResource( 5 )
+
+[node name="TextureRect" type="TextureRect" parent="Toolbox"]
+margin_left = 47.0
+margin_top = 239.0
+margin_right = 87.0
+margin_bottom = 279.0
+
+[node name="ColorRect" type="ColorRect" parent="Toolbox/TextureRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="mockup" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 160.0
+margin_top = 44.0
+margin_right = -37.0
+margin_bottom = -44.0
+rect_clip_content = true
+custom_styles/panel = SubResource( 6 )
+script = SubResource( 7 )
+
+[node name="grid" type="TextureRect" parent="mockup"]
+modulate = Color( 0, 0, 0, 0.133333 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+stretch_mode = 2
+

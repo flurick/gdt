@@ -5,201 +5,84 @@
 [ext_resource path="res://ColorPickerButton.gd" type="Script" id=3]
 
 [node name="Control" type="Control"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-_sections_unfolded = [ "Mouse", "Rect" ]
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-use_top_left = false
 
 [node name="GridContainer" type="GridContainer" parent="CenterContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 406.0
 margin_top = 182.0
 margin_right = 618.0
 margin_bottom = 417.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_constants/vseparation = 25
 custom_constants/hseparation = 25
 columns = 2
-_sections_unfolded = [ "custom_constants" ]
 
 [node name="Label" type="Label" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 87.0
 margin_bottom = 20.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Brush Color"
 align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 112.0
 margin_right = 212.0
 margin_bottom = 20.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-flat = false
-align = 1
 color = Color( 1, 1, 1, 1 )
 edit_alpha = false
-_sections_unfolded = [ "Pause", "Script" ]
 
 [node name="Label4" type="Label" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 45.0
 margin_right = 87.0
 margin_bottom = 65.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Second Color "
 align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="ColorPickerButton3" type="ColorPickerButton" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 112.0
 margin_top = 45.0
 margin_right = 212.0
 margin_bottom = 65.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-flat = false
-align = 1
 color = Color( 0.12549, 0.12549, 0.12549, 1 )
 edit_alpha = false
-_sections_unfolded = [ "Pause", "Script" ]
 
 [node name="Label3" type="Label" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 90.0
 margin_right = 87.0
 margin_bottom = 190.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Texture:"
 align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="Panel" type="Panel" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 112.0
 margin_top = 90.0
 margin_right = 212.0
 margin_bottom = 190.0
 rect_min_size = Vector2( 100, 100 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/GridContainer/Panel"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 50, 50 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 stretch_mode = 3
 script = ExtResource( 1 )
-_sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Rect", "Size Flags", "Theme" ]
-fg = Color( 1, 1, 1, 1 )
-bg = Color( 0, 0, 0, 1 )
 bg_source = "/root/world/Configure/Control/TabContainer/General/ColorPickerButton2"
-random_colors = false
 png = "desktop.png"
 
 [node name="ResourceLink" type="Node" parent="CenterContainer/GridContainer/Panel/TextureRect"]
@@ -209,72 +92,31 @@ target_path = "/root/world/bg"
 [node name="Label" type="Label" parent="CenterContainer/GridContainer/Panel"]
 visible = false
 modulate = Color( 1, 1, 1, 0.392157 )
-anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -14.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "name.png"
 align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Mouse", "Visibility", "custom_colors" ]
 
 [node name="Label2" type="Label" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 215.0
 margin_right = 87.0
 margin_bottom = 235.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Color Shift:"
 align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="ColorPickerButton2" type="ColorPickerButton" parent="CenterContainer/GridContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 112.0
 margin_top = 215.0
 margin_right = 212.0
 margin_bottom = 235.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-flat = false
-align = 1
 color = Color( 0.345098, 0.192157, 0.403922, 1 )
-edit_alpha = true
 script = ExtResource( 3 )
-_sections_unfolded = [ "Pause", "Script" ]
 target = "/root/world/bg"
 
 [connection signal="color_changed" from="CenterContainer/GridContainer/ColorPickerButton" to="CenterContainer/GridContainer/Panel/TextureRect" method="_on_ColorPickerButton_color_changed"]

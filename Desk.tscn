@@ -10,36 +10,9 @@
 [ext_resource path="res://btn_turn_of.gd" type="Script" id=8]
 [ext_resource path="res://tinycirlce.png" type="Texture" id=9]
 
-[sub_resource type="StyleBoxFlat" id=3]
-
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
-bg_color = Color( 0.6, 0.6, 0.6, 1 )
-draw_center = true
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
-border_color = Color( 0.8, 0.8, 0.8, 1 )
-border_blend = false
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-corner_detail = 8
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
-shadow_color = Color( 0, 0, 0, 0.6 )
-shadow_size = 0
-anti_aliasing = true
-anti_aliasing_size = 1
+[sub_resource type="StyleBoxFlat" id=1]
 
 [sub_resource type="GDScript" id=2]
-
 script/source = "extends Button
 
 func _ready():
@@ -53,18 +26,9 @@ func _pressed():
 #maybe: fadeout?"
 
 [node name="world" type="Control"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Script", "Visibility" ]
 __meta__ = {
 "_edit_horizontal_guides_": [ 331.716 ],
 "_edit_lock_": true,
@@ -75,402 +39,175 @@ __meta__ = {
 "Desk",
 ]]
 modulate = Color( 0.137255, 0.137255, 0.137255, 1 )
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 stretch_mode = 2
 script = ExtResource( 2 )
-_sections_unfolded = [ "Rect", "Size Flags", "Visibility" ]
 
 [node name="Windows" type="Control" parent="."]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 script = ExtResource( 3 )
-_sections_unfolded = [ "Rect" ]
 
 [node name="dock" type="HBoxContainer" parent="Windows"]
 self_modulate = Color( 1, 1, 1, 0.321569 )
-anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -44.0
 margin_bottom = -4.0
 rect_min_size = Vector2( 24, 24 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 5
 size_flags_vertical = 0
 alignment = 1
-_sections_unfolded = [ "Material", "Rect", "Script", "Size Flags", "Visibility" ]
 
 [node name="windowlist" type="HBoxContainer" parent="Windows/dock"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
-_sections_unfolded = [ "Script", "Size Flags", "Visibility" ]
 
 [node name="top_panel" type="PanelContainer" parent="."]
 self_modulate = Color( 1, 1, 1, 0.898039 )
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 24, 24 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_styles/panel = SubResource( 3 )
-_sections_unfolded = [ "Material", "Rect", "Script", "Visibility", "custom_styles" ]
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Left" type="HBoxContainer" parent="top_panel"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 38.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 0
-_sections_unfolded = [ "Mouse" ]
 
 [node name="Space" type="Control" parent="top_panel/Left"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 8.0
 margin_bottom = 8.0
 rect_min_size = Vector2( 8, 8 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="start_menu" type="MenuButton" parent="top_panel/Left"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 12.0
 margin_right = 53.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 24, 24 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
-size_flags_vertical = 1
-toggle_mode = false
-action_mode = 0
-enabled_focus_mode = 0
-shortcut = null
-group = null
 text = "Start"
-flat = true
-align = 1
-items = [  ]
 script = ExtResource( 4 )
-_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="Center" type="HBoxContainer" parent="top_panel"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 38.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 alignment = 1
-_sections_unfolded = [ "Mouse" ]
 
 [node name="Clock" parent="top_panel/Center" instance=ExtResource( 5 )]
 margin_left = 473.0
 margin_right = 550.0
 margin_bottom = 38.0
 size_flags_vertical = 3
-_sections_unfolded = [ "Focus", "Mouse", "Script", "Size Flags" ]
 
 [node name="Right" type="HBoxContainer" parent="top_panel"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 38.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 alignment = 2
-_sections_unfolded = [ "Mouse" ]
 
 [node name="btn_status" type="Button" parent="top_panel/Right"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 980.0
 margin_right = 1012.0
 margin_bottom = 38.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 text = "· · ·"
 flat = true
-align = 1
 script = ExtResource( 6 )
-_sections_unfolded = [ "Size Flags" ]
 
 [node name="Space2" type="Control" parent="top_panel/Right"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 1016.0
 margin_right = 1024.0
 margin_bottom = 8.0
 rect_min_size = Vector2( 8, 8 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="PopupPanel_status" type="Panel" parent="."]
 visible = false
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 margin_left = -103.0
 margin_top = 45.0
 margin_right = -5.0
 margin_bottom = 146.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 12
 size_flags_vertical = 12
-_sections_unfolded = [ "Popup", "Rect", "Size Flags" ]
 
 [node name="popuparrow" type="Panel" parent="PopupPanel_status"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 74.0
 margin_top = -11.0
 margin_right = 93.0
 margin_bottom = 8.0
 rect_rotation = 44.9999
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel_status"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 6
 size_flags_vertical = 3
 alignment = 1
-_sections_unfolded = [ "Rect", "Size Flags" ]
 
 [node name="Label" type="Label" parent="PopupPanel_status/VBoxContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 9.0
 margin_right = 98.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 25, 25 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 align = 1
 valign = 1
 autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 script = ExtResource( 7 )
-_sections_unfolded = [ "Rect" ]
 
 [node name="btn_fullscreen" type="Button" parent="PopupPanel_status/VBoxContainer"]
 modulate = Color( 0.886275, 1, 0.905882, 1 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 38.0
 margin_right = 98.0
 margin_bottom = 63.0
 rect_min_size = Vector2( 25, 25 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 text = "Fullscreen"
-flat = false
-align = 1
 script = SubResource( 2 )
-_sections_unfolded = [ "Rect", "Script", "Visibility" ]
 
 [node name="btn_turn_of" type="Button" parent="PopupPanel_status/VBoxContainer"]
 modulate = Color( 1, 0.870588, 0.870588, 1 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_top = 67.0
 margin_right = 98.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 25, 25 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 text = "Turn off"
-flat = false
-align = 1
 script = ExtResource( 8 )
-_sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="round_corners_bitmap" type="NinePatchRect" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 9 )
 draw_center = false
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
-_sections_unfolded = [ "Axis Stretch", "Patch Margin", "Visibility", "texture" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = null
-volume_db = 0.0
-pitch_scale = 1.0
-autoplay = false
-stream_paused = false
-max_distance = 2000.0
-attenuation = 1.0
-bus = "Master"
-area_mask = 1
 
 [node name="overlay" type="ColorRect" parent="."]
 visible = false
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
 mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0, 0, 0, 1 )
-_sections_unfolded = [ "Mouse" ]
 
 [connection signal="open" from="top_panel/Left/start_menu" to="Windows" method="_on_start_menu_open"]

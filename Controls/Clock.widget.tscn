@@ -2,13 +2,7 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
-
 [sub_resource type="GDScript" id=2]
-
 script/source = "extends Button
 
 func _ready():
@@ -18,40 +12,21 @@ var month_of = [\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"
 var day_of = [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\",\"Sunday\",\"today\",\"tomorrow\",\"yesterday\",\"fortnight\"]
 func _on_Timer_timeout():
 	var the = OS.get_datetime()
-	text = str( the.hour, \":\", the.minute, \":\", the.second, \" \", day_of[the.weekday].substr(0,3), \" the \", the.day, \"th of \", month_of[the.month].substr(0,3) )
+#	text = str( the.hour, \":\", the.minute, \":\", the.second, \" \", day_of[the.weekday].substr(0,3), \" the \", the.day, \"th of \", month_of[the.month].substr(0,3) )
 "
 
 [node name="Clock" type="Button"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 77.0
 margin_bottom = 24.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/focus = SubResource( 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 text = "now today"
 flat = true
-align = 1
 script = SubResource( 2 )
-_sections_unfolded = [ "Focus", "Mouse", "Script", "Size Flags", "custom_styles" ]
 
 [node name="Timer" type="Timer" parent="."]
 pause_mode = 2
-process_mode = 1
-wait_time = 1.0
-one_shot = false
 autostart = true
-_sections_unfolded = [ "Pause" ]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

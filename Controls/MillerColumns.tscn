@@ -3,7 +3,6 @@
 [ext_resource path="res://ScrollContainerTest.gd" type="Script" id=1]
 
 [sub_resource type="GDScript" id=1]
-
 script/source = "extends Control
 
 export var keep_scroll_to_right = true
@@ -64,67 +63,24 @@ func add_col():
 "
 
 [node name="MillerColumns" type="Control"]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 script = SubResource( 1 )
-keep_scroll_to_right = true
-keep_scroll_to_bottom = false
-min_column_rect = Vector2( 200, 50 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0.937255, 0.937255, 0.937255, 1 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-scroll_horizontal_enabled = true
-scroll_horizontal = 0
-scroll_vertical_enabled = true
-scroll_vertical = 0
-scroll_deadzone = 0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Script", "Scroll" ]
 
 [node name="row" type="HBoxContainer" parent="ScrollContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 600.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-alignment = 0
-_sections_unfolded = [ "Size Flags", "custom_constants" ]
 
 [connection signal="item_rect_changed" from="ScrollContainer/row" to="ScrollContainer" method="_on_row_item_rect_changed"]
