@@ -3,7 +3,7 @@
 [ext_resource path="res://Controls/Clock.widget.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tinycirlce.png" type="Texture" id=2]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Control
 
 func _ready():
@@ -16,7 +16,7 @@ func _process(delta):
 		$overlay.modulate.a = 0
 		set_process(false)"
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=5]
 script/source = "extends TextureRect
 
 func _ready():
@@ -46,9 +46,11 @@ func open(app_tscn):
 		var app = load(app_tscn).instance()
 		print(\"Loading: \", app)
 		w.find_node(\"app_container\").add_child(app)
-#		w.find_node(\"app_container\").rect_min_size = app.get_child(0).rect_size
-		w.title = app_tscn
-		w.rect_position = OS.window_size*0.5 #todo: this is weird, no react_size at all on creation? 
+		w.find_node(\"app_container\").rect_min_size = app.get_child(0).rect_size
+		w.title = app_tscn.split(\".\")[0].split(\"/\")[-1]
+		
+		w.rect_position = w.get_parent_control().rect_size*0.5 - w.rect_size*0.5 #center on screen
+#		w.rect_position = OS.window_size*0.5 #todo: this is weird, no react_size at all on creation? 
 	else:
 		print(\"Failed to load: \",app_tscn)
 #		var l = Label.new()
@@ -61,8 +63,9 @@ func open(app_tscn):
 	
 	var dock_icon = Button.new() 
 	dock_icon.connect(\"pressed\", w, \"toggle_visible\")
-	dock_icon.text = app_tscn
+	dock_icon.text = app_tscn.split(\".\")[0].split(\"/\")[-1]
 	$dock/windowlist.add_child(dock_icon)
+	w.dock_icon = dock_icon 
 	
 	return w
 
@@ -77,9 +80,9 @@ func _on_start_menu_open(path):
 	open(path)
 "
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=6]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=7]
 script/source = "extends MenuButton
 
 signal open(path)
@@ -89,27 +92,27 @@ func _ready():
 	get_popup().connect(\"id_pressed\",self,\"id_pressed\")
 	for file in global.ls(\"res://Apps\").files:
 		if file.match(\"*app.tscn\"):
-			get_popup().add_item( file.rstrip(\".app.tscn\")  )
+			get_popup().add_item( file.split(\".\")[0]  )
 			get_popup().set_item_metadata( get_popup().get_item_count()-1, str(\"res://Apps/\",file) )
 
 
 func id_pressed(id):
 	emit_signal(\"open\", get_popup().get_item_metadata(id))"
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=8]
 script/source = "extends Button
 
 func _pressed():
 	get_node(\"/root/world\").find_node(\"PopupPanel_status\").visible = !get_node(\"/root/world\").find_node(\"PopupPanel_status\").visible"
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=9]
 script/source = "extends Label
 
 func _ready():
 	text = str(\"v.\", global.sh(\"git\", [\"rev-parse\", \"--short\", \"HEAD\"]).output) 
 "
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id=10]
 script/source = "extends Button
 
 func _ready():
@@ -122,7 +125,7 @@ func _pressed():
 
 #maybe: fadeout?"
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=11]
 script/source = "extends Button
 
 
@@ -134,7 +137,7 @@ func _pressed():
 [node name="world" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 1 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 331.716 ],
 "_edit_lock_": true,
@@ -148,7 +151,7 @@ modulate = Color( 0.137255, 0.137255, 0.137255, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 stretch_mode = 2
-script = SubResource( 2 )
+script = SubResource( 5 )
 
 [node name="Windows" type="Control" parent="."]
 anchor_right = 1.0
@@ -179,7 +182,7 @@ self_modulate = Color( 1, 1, 1, 0.898039 )
 anchor_right = 1.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 24, 24 )
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -203,7 +206,7 @@ margin_bottom = 38.0
 rect_min_size = Vector2( 24, 24 )
 size_flags_horizontal = 0
 text = "Start"
-script = SubResource( 5 )
+script = SubResource( 7 )
 
 [node name="Center" type="HBoxContainer" parent="top_panel"]
 margin_right = 1024.0
@@ -230,7 +233,7 @@ margin_bottom = 38.0
 size_flags_horizontal = 0
 text = "· · ·"
 flat = true
-script = SubResource( 6 )
+script = SubResource( 8 )
 
 [node name="Space2" type="Control" parent="top_panel/Right"]
 margin_left = 1016.0
@@ -273,7 +276,7 @@ rect_min_size = Vector2( 25, 25 )
 align = 1
 valign = 1
 autowrap = true
-script = SubResource( 7 )
+script = SubResource( 9 )
 
 [node name="btn_fullscreen" type="Button" parent="PopupPanel_status/VBoxContainer"]
 modulate = Color( 0.886275, 1, 0.905882, 1 )
@@ -282,7 +285,7 @@ margin_right = 98.0
 margin_bottom = 63.0
 rect_min_size = Vector2( 25, 25 )
 text = "Fullscreen"
-script = SubResource( 8 )
+script = SubResource( 10 )
 
 [node name="btn_turn_of" type="Button" parent="PopupPanel_status/VBoxContainer"]
 modulate = Color( 1, 0.870588, 0.870588, 1 )
@@ -291,7 +294,7 @@ margin_right = 98.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 25, 25 )
 text = "Turn off"
-script = SubResource( 9 )
+script = SubResource( 11 )
 
 [node name="round_corners_bitmap" type="NinePatchRect" parent="."]
 modulate = Color( 0, 0, 0, 1 )
