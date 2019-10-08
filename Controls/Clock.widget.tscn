@@ -13,6 +13,7 @@ var day_of = [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Sat
 func _on_Timer_timeout():
 	var the = OS.get_datetime()
 #	text = str( the.hour, \":\", the.minute, \":\", the.second, \" \", day_of[the.weekday].substr(0,3), \" the \", the.day, \"th of \", month_of[the.month].substr(0,3) )
+	text = str( the.hour, \":\", the.minute )
 "
 
 [node name="Clock" type="Button"]
@@ -28,5 +29,4 @@ script = SubResource( 2 )
 [node name="Timer" type="Timer" parent="."]
 pause_mode = 2
 autostart = true
-
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
