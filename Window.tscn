@@ -32,6 +32,7 @@ func _ready():
 #	$V/header.rect_min_size = grid
 	
 	find_node(\"close\").connect(\"pressed\", self, \"close\")
+	find_node(\"size\").connect(\"pressed\", self, \"maximize\")
 
 
 var corner = false
@@ -47,6 +48,9 @@ func corner(event):
 func close():
 	visible = false
 
+func maximize():
+	rect_position = Vector2(64,64)
+	rect_size = get_parent_control().rect_size - Vector2(64,64)*2
 
 func _gui_input(event):
 	
@@ -99,10 +103,14 @@ func _gui_input(event):
 [sub_resource type="StyleBoxEmpty" id=4]
 
 [node name="Window" type="Panel"]
-margin_left = -150.0
-margin_top = -71.0
-margin_right = 230.0
-margin_bottom = 91.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.5
+margin_top = -83.5
+margin_right = 126.5
+margin_bottom = 83.5
 rect_min_size = Vector2( 50, 50 )
 custom_styles/panel = SubResource( 1 )
 script = SubResource( 2 )
@@ -133,7 +141,7 @@ anchor_bottom = 1.0
 custom_constants/separation = 0
 
 [node name="header" type="Control" parent="V"]
-margin_right = 380.0
+margin_right = 253.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 rect_clip_content = true
@@ -150,8 +158,8 @@ custom_constants/separation = 0
 alignment = 1
 
 [node name="title" type="Button" parent="V/header/center"]
-margin_left = 171.0
-margin_right = 208.0
+margin_left = 108.0
+margin_right = 145.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 24, 24 )
 mouse_filter = 1
@@ -174,9 +182,8 @@ custom_constants/separation = 0
 alignment = 2
 
 [node name="size" type="TextureButton" parent="V/header/right"]
-editor/display_folded = true
-margin_left = 340.0
-margin_right = 380.0
+margin_left = 213.0
+margin_right = 253.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 texture_normal = ExtResource( 1 )
@@ -194,13 +201,14 @@ color = Color( 0.690196, 0.788235, 0.894118, 1 )
 [node name="left" type="HBoxContainer" parent="V/header"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.43195
+margin_bottom = -1.43195
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="close" type="TextureButton" parent="V/header/left"]
-editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
@@ -218,7 +226,7 @@ color = Color( 0.894118, 0.690196, 0.690196, 1 )
 
 [node name="header_shadow" type="ColorRect" parent="V"]
 margin_top = 40.0
-margin_right = 380.0
+margin_right = 253.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 1, 1 )
 size_flags_horizontal = 3
@@ -226,10 +234,9 @@ color = Color( 0.843137, 0.843137, 0.843137, 1 )
 
 [node name="app_container" type="Container" parent="V"]
 margin_top = 41.0
-margin_right = 380.0
-margin_bottom = 162.0
+margin_right = 253.0
+margin_bottom = 167.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
