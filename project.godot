@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="godot+util+desktop"
+config/name="GDT desktop"
 run/main_scene="res://Desk.tscn"
 config/icon="res://icon.png"
 
