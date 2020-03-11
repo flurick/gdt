@@ -4,7 +4,7 @@
 [ext_resource path="res://grid.png" type="Texture" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.227451, 0.188235, 0.317647, 1 )
+bg_color = Color( 0.215686, 0.207843, 0.235294, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -34,7 +34,7 @@ func get_drag_data(position):
 "
 
 [sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0, 0.0156863, 1, 1 )
+bg_color = Color( 0.243137, 0.407843, 0.882353, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -152,10 +152,10 @@ margin_bottom = 185.0
 
 [node name="title" type="LineEdit" parent="."]
 anchor_right = 1.0
-margin_bottom = 92.0
+margin_bottom = 79.0
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = SubResource( 3 )
-text = "MyApp"
+text = "Name"
 align = 1
 
 [node name="Toolbox" type="Panel" parent="."]
@@ -212,16 +212,16 @@ margin_bottom = 40.0
 [node name="mockup" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 160.0
-margin_top = 44.0
+margin_left = 164.0
+margin_top = 78.0
 margin_right = -37.0
-margin_bottom = -44.0
+margin_bottom = -38.0
 rect_clip_content = true
 custom_styles/panel = SubResource( 6 )
 script = SubResource( 7 )
 
 [node name="grid" type="TextureRect" parent="mockup"]
-modulate = Color( 0, 0, 0, 0.133333 )
+modulate = Color( 0, 0, 0, 0.109804 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 1.0
@@ -229,4 +229,3 @@ margin_bottom = 1.0
 rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 stretch_mode = 2
-
