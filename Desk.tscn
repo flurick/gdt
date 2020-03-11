@@ -13,10 +13,11 @@ func _ready():
 	$overlay.modulate.a = 1
 
 func _process(delta):
-	$overlay.modulate.a = lerp($overlay.modulate.a , 0,0.01)
+	$overlay.modulate.a = lerp($overlay.modulate.a , 0,0.05)
 	if $overlay.modulate.a < 0.1: 
 		$overlay.modulate.a = 0
-		set_process(false)"
+		set_process(false)
+"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends TextureRect
