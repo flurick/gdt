@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GDT desktop"
+config/name="GDT"
 run/main_scene="res://Desk.tscn"
 config/icon="res://icon.png"
 
