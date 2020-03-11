@@ -35,9 +35,10 @@ func select_to_open(src_index, src_node):
 
 func lscon_dynamic_external(src_index, src_node):
 	
-	if debug: printt(\"lscon_dynamic_external:\", src_index, src_node)
-	
 	var path_to_open = src_node.get_item_metadata(src_index)
+	
+	if debug: printt(\"debug - \", \"lscon_dynamic_external:\", path_to_open)
+	
 	
 	var d = Directory.new()
 	if d.dir_exists(path_to_open):
@@ -50,7 +51,7 @@ func lscon_dynamic_external(src_index, src_node):
 
 func lscon_dynamic_external_multi(arg3,src_index, src_node):
 	
-	if debug: printt(\"lscon_dynamic_external:\", src_index, src_node)
+	if debug: printt(\"debug - \", \"lscon_dynamic_external:\", src_index, src_node)
 
 	miller.del_col_post(src_node.get_index())
 	lscol_dynamic(src_node, src_node.get_item_metadata(src_index))
@@ -60,7 +61,7 @@ func lscon_dynamic_external_multi(arg3,src_index, src_node):
 
 func lscol_dynamic(src_col, path):
 	
-	if debug: printt( \"lscol_dynamic:\", str(src_col), str(path) )
+	if debug: printt(\"debug - \", \"lscol_dynamic:\", str(src_col), str(path) )
 	
 	var new_col = miller.add_col()
 	new_col.connect(\"item_activated\", self, \"lscon_dynamic_external\", [new_col])
@@ -97,7 +98,7 @@ func _on_Button_pressed():
 script/source = "extends ItemList
 
 func _ready():
-	add_item(\"tmsu not started\")
+	add_item(\"TMSU service was not found, not file or directory tags will be used in this session.\")
 "
 
 [node name="Control" type="Control"]
@@ -113,20 +114,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="V" type="VBoxContainer" parent="h"]
-editor/display_folded = true
 margin_right = 50.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 50, 0 )
 
 [node name="bookmarks" type="ItemList" parent="h/V"]
 margin_right = 50.0
-margin_bottom = 298.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "/home", null, false, "/", null, false ]
 select_mode = 1
 
 [node name="tags" type="ItemList" parent="h/V"]
+visible = false
 margin_top = 302.0
 margin_right = 50.0
 margin_bottom = 600.0
@@ -145,10 +146,11 @@ dragger_visibility = 2
 [node name="MillerColumns" parent="h/h" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 430.0
+margin_right = 962.0
 margin_bottom = 600.0
 
 [node name="details" type="Panel" parent="h/h"]
+visible = false
 margin_left = 430.0
 margin_right = 962.0
 margin_bottom = 600.0
@@ -162,7 +164,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 1, 1, 1, 0.12549 )
 
+[node name="Open" type="Button" parent="h/h/details"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Open"
+
 [node name="Panel" type="Panel" parent="."]
+visible = false
 anchor_right = 1.0
 rect_min_size = Vector2( 24, 24 )
 
@@ -200,32 +208,26 @@ hint_tooltip = "Reverse"
 pressed = true
 action_mode = 0
 
-[node name="Space2" type="Control" parent="Panel/H"]
-margin_left = 172.0
-margin_right = 184.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 12, 12 )
-
-[node name="Space3" type="Control" parent="Panel/H"]
-margin_left = 188.0
-margin_right = 200.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 12, 12 )
-
 [node name="H2" type="HBoxContainer" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Panel/H2"]
-margin_left = 464.0
-margin_right = 522.0
+[node name="Tag" type="Control" parent="Panel/H2"]
+visible = false
+margin_left = 512.0
+margin_right = 512.0
 margin_bottom = 24.0
 
-[node name="Button" type="Button" parent="Panel/H2"]
-margin_left = 526.0
-margin_right = 559.0
+[node name="LineEdit" type="LineEdit" parent="Panel/H2/Tag"]
+margin_left = -99.0
+margin_right = -41.0
+margin_bottom = 24.0
+
+[node name="Button" type="Button" parent="Panel/H2/Tag"]
+margin_left = -37.0
+margin_right = -4.0
 margin_bottom = 24.0
 text = "Tag"
 
@@ -247,7 +249,6 @@ margin_left = 1012.0
 margin_right = 1024.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 12, 12 )
-
 [connection signal="item_activated" from="h/V/bookmarks" to="." method="_on_bookmarks_item_activated"]
 [connection signal="item_selected" from="h/V/bookmarks" to="." method="_on_bookmarks_item_selected"]
-[connection signal="pressed" from="Panel/H2/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Panel/H2/Tag/Button" to="." method="_on_Button_pressed"]
