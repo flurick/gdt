@@ -1,30 +1,61 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+
+func _ready():
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.connect(\"request_completed\", self, \"_http_request_completed\")
+	
+	var error = http_request.request(\"https://httpbin.org/get\")
+	if error != OK:  push_error(\"An error occurred in the HTTP request.\")
+
+
+func _http_request_completed(result, response_code, headers, body):
+	var response = parse_json(body.get_string_from_utf8())
+	$RichTextLabel.text = response.headers[\"User-Agent\"]
+"
 
 [node name="Hypertext" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -6.0
-margin_right = 2.0
-margin_bottom = -6.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
-margin_left = 466.0
+margin_left = 420.0
 margin_top = 288.0
-margin_right = 558.0
+margin_right = 604.0
 margin_bottom = 312.0
 
 [node name="LineEdit" type="LineEdit" parent="CenterContainer/HBoxContainer"]
-margin_right = 58.0
+margin_right = 150.0
 margin_bottom = 24.0
+rect_min_size = Vector2( 150, 0 )
 
 [node name="Button" type="Button" parent="CenterContainer/HBoxContainer"]
-margin_left = 62.0
-margin_right = 92.0
+margin_left = 154.0
+margin_right = 184.0
 margin_bottom = 24.0
 text = "Go"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "test"
+__meta__ = {
+"_edit_use_anchors_": false
+}
