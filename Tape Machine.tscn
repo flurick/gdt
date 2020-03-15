@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[sub_resource type="StyleBoxFlat" id=13]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.305882, 0.321569, 0.34902, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
@@ -9,7 +9,7 @@ corner_radius_bottom_left = 4
 shadow_color = Color( 0, 0, 0, 0.0588235 )
 shadow_size = 15
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=2]
 script/source = "extends HSlider
 
 func _ready():
@@ -18,7 +18,7 @@ func _ready():
 func step():
 	value += 1"
 
-[sub_resource type="AudioStreamMicrophone" id=15]
+[sub_resource type="AudioStreamMicrophone" id=3]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -35,7 +35,7 @@ anchor_left = 0.0441767
 anchor_top = 0.0504587
 anchor_right = 0.951807
 anchor_bottom = 0.944954
-custom_styles/panel = SubResource( 13 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -100,7 +100,7 @@ margin_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 300.0
 ticks_on_borders = true
-script = SubResource( 11 )
+script = SubResource( 2 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Tapes/VBoxContainer"]
 margin_top = 58.0
@@ -149,20 +149,6 @@ ticks_on_borders = true
 [node name="Timer" type="Timer" parent="Tapes"]
 wait_time = 0.1
 
-[node name="Go" type="Button" parent="."]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -53.75
-margin_top = -66.4499
-margin_right = 61.25
-margin_bottom = -27.4499
-text = "REC"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
 margin_left = 30.0
@@ -173,20 +159,61 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 85.3229
-margin_top = 166.863
-margin_right = 93.3229
-margin_bottom = 192.863
-rect_rotation = -180.0
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 3 )
+autoplay = true
+bus = "record"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_top = -62.0
+margin_right = -21.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rec" type="Button" parent="HBoxContainer"]
+margin_right = 62.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 62, 0 )
+text = "REC"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/rec"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -13.0
+margin_right = -3.8147e-06
+margin_bottom = 12.0
+rect_min_size = Vector2( 8, 8 )
 color = Color( 1, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource( 15 )
-autoplay = true
-bus = "record"
+[node name="Control" type="Control" parent="HBoxContainer"]
+margin_left = 66.0
+margin_right = 139.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 73, 0 )
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+margin_left = 143.0
+margin_right = 205.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 62, 0 )
+text = "PLAY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="Tapes/Timer" to="Tapes" method="_on_Timer_timeout"]
-[connection signal="pressed" from="Go" to="Tapes" method="_on_Go_pressed"]
+[connection signal="pressed" from="HBoxContainer/rec" to="Tapes" method="_on_Go_pressed"]
