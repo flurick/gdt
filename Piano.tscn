@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Controls/12keys.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+#project, pattern, track, step
+#10 * 16 * 16, 160
+
+func _on_Keys_note_on(name):
+	print(name)
+
+func _on_Keys2_note_on(name):
+	print(name,\"+1\")
+"
+
+[node name="Control" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keys" parent="." instance=ExtResource( 2 )]
+size_flags_vertical = 0
+
+[node name="Keys2" parent="." instance=ExtResource( 2 )]
+margin_left = 354.0
+margin_right = 704.0
+size_flags_vertical = 0
+[connection signal="note_on" from="Keys" to="." method="_on_Keys_note_on"]
+[connection signal="note_on" from="Keys2" to="." method="_on_Keys2_note_on"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Controls/MillerColumns.tscn" type="PackedScene" id=1]
 
@@ -97,6 +97,25 @@ func _on_Button_pressed():
 [sub_resource type="GDScript" id=2]
 script/source = "extends ItemList
 
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends ItemList
+
 func _ready():
 	add_item(\"TMSU service was not found, not file or directory tags will be used in this session.\")
 "
@@ -108,6 +127,9 @@ rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="h" type="HSplitContainer" parent="."]
 anchor_right = 1.0
@@ -123,8 +145,9 @@ margin_right = 50.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "/home", null, false, "/", null, false ]
+items = [ "/home", null, false, "/", null, false, "res://", null, false ]
 select_mode = 1
+script = SubResource( 2 )
 
 [node name="tags" type="ItemList" parent="h/V"]
 visible = false
@@ -134,7 +157,7 @@ margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 select_mode = 1
-script = SubResource( 2 )
+script = SubResource( 3 )
 
 [node name="h" type="HSplitContainer" parent="h"]
 margin_left = 62.0
@@ -193,7 +216,7 @@ text = "Sort"
 
 [node name="OptionButton" type="OptionButton" parent="Panel/H"]
 margin_left = 45.0
-margin_right = 140.0
+margin_right = 128.0
 margin_bottom = 24.0
 hint_tooltip = "Sort by"
 text = "Changed"
@@ -201,8 +224,8 @@ items = [ "Size", null, false, 3, null, "Created", null, false, 2, null, "Change
 selected = 2
 
 [node name="CheckBox" type="CheckBox" parent="Panel/H"]
-margin_left = 144.0
-margin_right = 168.0
+margin_left = 132.0
+margin_right = 156.0
 margin_bottom = 24.0
 hint_tooltip = "Reverse"
 pressed = true

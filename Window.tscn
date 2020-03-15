@@ -89,6 +89,13 @@ func _gui_input(event):
 			BUTTON_MIDDLE:  pass
 			BUTTON_RIGHT:  if event.control: rect_size = rect_size.snapped(grid)
 
+
+
+func _on_header_gui_input(event):
+	if event is InputEventMouseButton\\
+	and event.doubleclick:
+		maximize()
+		
 "
 
 [sub_resource type="GDScript" id=3]
@@ -110,14 +117,16 @@ func _gui_input(event):
 [sub_resource type="StyleBoxEmpty" id=4]
 
 [node name="Window" type="Panel"]
-margin_right = 253.0
-margin_bottom = 167.0
+margin_right = 403.0
+margin_bottom = 266.0
 rect_min_size = Vector2( 50, 50 )
 custom_styles/panel = SubResource( 1 )
 script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Corner" type="Control" parent="."]
-editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -140,13 +149,16 @@ color = Color( 0.0862745, 0.894118, 1, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="header" type="Control" parent="V"]
-margin_right = 253.0
+margin_right = 403.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 rect_clip_content = true
-mouse_filter = 2
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="center" type="HBoxContainer" parent="V/header"]
@@ -157,10 +169,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="title" type="Button" parent="V/header/center"]
-margin_left = 108.0
-margin_right = 145.0
+margin_left = 183.0
+margin_right = 220.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 24, 24 )
 mouse_filter = 1
@@ -183,8 +198,8 @@ custom_constants/separation = 0
 alignment = 2
 
 [node name="size" type="TextureButton" parent="V/header/right"]
-margin_left = 213.0
-margin_right = 253.0
+margin_left = 363.0
+margin_right = 403.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 texture_normal = ExtResource( 1 )
@@ -227,7 +242,7 @@ color = Color( 0.894118, 0.690196, 0.690196, 1 )
 
 [node name="header_shadow" type="ColorRect" parent="V"]
 margin_top = 40.0
-margin_right = 253.0
+margin_right = 403.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 1, 1 )
 size_flags_horizontal = 3
@@ -235,9 +250,10 @@ color = Color( 0.843137, 0.843137, 0.843137, 1 )
 
 [node name="app_container" type="Container" parent="V"]
 margin_top = 41.0
-margin_right = 253.0
-margin_bottom = 167.0
+margin_right = 403.0
+margin_bottom = 266.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+[connection signal="gui_input" from="V/header" to="." method="_on_header_gui_input"]

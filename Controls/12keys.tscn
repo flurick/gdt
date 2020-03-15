@@ -62,21 +62,22 @@ shadow_color = Color( 1, 1, 1, 0.0784314 )
 shadow_size = 10
 
 [node name="Keys" type="Control"]
-margin_left = 170.0
-margin_top = 312.0
-margin_right = 520.0
-margin_bottom = 462.0
+margin_right = 350.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 350, 150 )
+rect_clip_content = true
 script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -198.0
 margin_bottom = -43.0
+rect_min_size = Vector2( 350, 150 )
 custom_constants/separation = 0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="black" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 350.0
@@ -84,7 +85,6 @@ margin_bottom = 50.0
 custom_constants/separation = 0
 
 [node name="Button1" type="Button" parent="VBoxContainer/black"]
-editor/display_folded = true
 margin_right = 75.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 75, 50 )
@@ -124,7 +124,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 3 )
 
 [node name="Button3" type="Button" parent="VBoxContainer/black"]
-editor/display_folded = true
 margin_left = 75.0
 margin_right = 125.0
 margin_bottom = 50.0
@@ -165,7 +164,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 3 )
 
 [node name="Button2" type="Button" parent="VBoxContainer/black"]
-editor/display_folded = true
 margin_left = 125.0
 margin_right = 200.0
 margin_bottom = 50.0
@@ -205,7 +203,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Button4" type="Button" parent="VBoxContainer/black"]
-editor/display_folded = true
 margin_left = 200.0
 margin_right = 275.0
 margin_bottom = 50.0
@@ -284,7 +281,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="white" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_top = 50.0
 margin_right = 350.0
 margin_bottom = 150.0
@@ -292,7 +288,6 @@ rect_min_size = Vector2( 50, 100 )
 custom_constants/separation = 0
 
 [node name="Button1" type="Button" parent="VBoxContainer/white"]
-editor/display_folded = true
 margin_right = 50.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 50, 50 )
@@ -319,7 +314,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 4 )
 
 [node name="Button2" type="Button" parent="VBoxContainer/white"]
-editor/display_folded = true
 margin_left = 50.0
 margin_right = 100.0
 margin_bottom = 100.0
@@ -347,7 +341,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 4 )
 
 [node name="Button3" type="Button" parent="VBoxContainer/white"]
-editor/display_folded = true
 margin_left = 100.0
 margin_right = 150.0
 margin_bottom = 100.0
@@ -375,7 +368,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 4 )
 
 [node name="Button4" type="Button" parent="VBoxContainer/white"]
-editor/display_folded = true
 margin_left = 150.0
 margin_right = 200.0
 margin_bottom = 100.0
@@ -403,7 +395,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 4 )
 
 [node name="Button5" type="Button" parent="VBoxContainer/white"]
-editor/display_folded = true
 margin_left = 200.0
 margin_right = 250.0
 margin_bottom = 100.0
@@ -431,7 +422,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 4 )
 
 [node name="Button6" type="Button" parent="VBoxContainer/white"]
-editor/display_folded = true
 margin_left = 250.0
 margin_right = 300.0
 margin_bottom = 100.0
@@ -459,7 +449,6 @@ size_flags_horizontal = 3
 custom_styles/panel = SubResource( 4 )
 
 [node name="Button7" type="Button" parent="VBoxContainer/white"]
-editor/display_folded = true
 margin_left = 300.0
 margin_right = 350.0
 margin_bottom = 100.0
@@ -485,4 +474,3 @@ rect_min_size = Vector2( 25, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 4 )
-

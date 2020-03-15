@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://fonts/Kalam-Regular.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
@@ -25,9 +24,8 @@ split_offset = 600
 [node name="video" type="TextureRect" parent="HSplitContainer"]
 margin_right = 600.0
 margin_bottom = 600.0
-texture = ExtResource( 1 )
 expand = true
-stretch_mode = 6
+stretch_mode = 4
 
 [node name="progress" type="HSlider" parent="HSplitContainer/video"]
 anchor_top = 1.0
@@ -47,6 +45,9 @@ custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = ">"
 flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="sidepanel" type="Panel" parent="HSplitContainer"]
 margin_left = 612.0
@@ -56,13 +57,24 @@ margin_bottom = 600.0
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/sidepanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HSplitContainer/sidepanel/VBoxContainer"]
+margin_right = 412.0
+margin_bottom = 14.0
+text = "Playlist:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="playlist" type="ItemList" parent="HSplitContainer/sidepanel/VBoxContainer"]
+margin_top = 18.0
 margin_right = 412.0
 margin_bottom = 572.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "Item 0", null, false, "Item 1", null, false, "Item 2", null, false ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/sidepanel/VBoxContainer"]
 margin_top = 576.0
@@ -95,4 +107,3 @@ margin_bottom = 24.0
 min_value = -10.0
 max_value = 10.0
 suffix = "x"
-
