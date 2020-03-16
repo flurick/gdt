@@ -34,16 +34,14 @@ rect_clip_content = true
 script = SubResource( 1 )
 
 [node name="LineEdit" type="LineEdit" parent="."]
-margin_left = 1.0
-margin_top = -4.0
-margin_right = 574.0
-margin_bottom = 20.0
+anchor_right = 1.0
+margin_bottom = 24.0
 text = "Title"
 
 [node name="TextEdit" type="TextEdit" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 25.0
+margin_top = 27.0
 mouse_default_cursor_shape = 0
 theme = SubResource( 3 )
 text = "Hello!
@@ -52,5 +50,4 @@ highlight_all_occurrences = true
 smooth_scrolling = true
 wrap_enabled = true
 caret_blink = true
-
 [connection signal="text_changed" from="TextEdit" to="." method="_on_TextEdit_text_changed"]
