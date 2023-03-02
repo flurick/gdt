@@ -1,11 +1,11 @@
 extends Node
 
 func ls(path="res://"):
-	var dir = Directory.new()
 	var dirs = []
 	var files = []
-	if path and dir.open(path) == OK:
-		dir.list_dir_begin(true, true)
+	var dir = DirAccess.open(path)
+	if path and dir != null:
+		dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while (file_name != ""):
 			if dir.current_is_dir():
@@ -20,14 +20,13 @@ func scan_dir(path):
 	var file_name
 	var files = []
 #	var dirs = []
-	var dir = Directory.new()
-	var error = dir.open(path)
+	var dir = DirAccess.open(path)
 	
-	if error!=OK:
+	if dir == null:
 		print("Can't open "+path+"!")
 		return ["fail"]
 	
-	dir.list_dir_begin(true)
+	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	file_name = dir.get_next()
 	while file_name!="":
 		if dir.current_is_dir():
@@ -47,5 +46,5 @@ func scan_dir(path):
 func sh(command, args=[]):
 	var err = []
 	var output = []
-	err = OS.execute(command, PoolStringArray(args), true, output)
+	err = OS.execute(command, PackedStringArray(args), output)
 	return {"output":output[0], "err":err}

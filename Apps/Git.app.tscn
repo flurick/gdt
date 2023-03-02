@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bg7glo5a5kju0"]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id="2"]
 script/source = "extends ItemList
 
 signal item_activated_src(text_clicked)
 
 func _ready():
 	
-	connect(\"item_activated\",self,\"trigger_item_activated_src\")
+	connect(\"item_activated\",Callable(self,\"trigger_item_activated_src\"))
 	
 	#list repos in home folders
 	for repo in global.sh(\"find\",[\"/home\",\"-name\",\".git\",\"-printf\",\"%p::\"]).output.split(\"::\"):
@@ -25,14 +25,14 @@ func trigger_item_activated_src(index):
 	emit_signal( \"item_activated_src\", get_item_tooltip(index) )
 	pass"
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id="3"]
 script/source = "extends Label
 
 func _ready():
 	text = str(global.sh(\"git\", [\"--version\"]).output)
 "
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends ItemList
 
 
@@ -40,7 +40,7 @@ func open(repo):
 	clear()
 	for line in global.sh(\"git\", [\"--git-dir\", repo, \"log\", \"--oneline\"]).output.split(\"\\n\"):
 		add_item( line )
-	get_v_scroll().value = 0
+	get_v_scroll_bar().value = 0
 
 
 func _on_repo_list_item_activated_src(text_clicked):
@@ -48,86 +48,59 @@ func _on_repo_list_item_activated_src(text_clicked):
 "
 
 [node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="repo_browser" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 126.0
-margin_bottom = 600.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 2
 
 [node name="repo_list" type="ItemList" parent="HBoxContainer/repo_browser"]
-margin_right = 126.0
-margin_bottom = 571.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 select_mode = 1
 max_columns = 3
-script = SubResource( 2 )
+script = SubResource("2")
 
 [node name="Panel" type="HBoxContainer" parent="HBoxContainer/repo_browser"]
-margin_top = 575.0
-margin_right = 126.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 25, 25 )
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 
 [node name="version" type="Label" parent="HBoxContainer/repo_browser/Panel"]
-margin_top = 5.0
-margin_right = 75.0
-margin_bottom = 19.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "version info"
-script = SubResource( 3 )
+script = SubResource("3")
 
 [node name="Button" type="Button" parent="HBoxContainer/repo_browser/Panel"]
-margin_left = 79.0
-margin_right = 126.0
-margin_bottom = 25.0
+layout_mode = 2
 text = "Open"
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
-margin_left = 130.0
-margin_right = 920.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 100, 100 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0, 0.462745, 1, 1 )
+color = Color(0, 0.462745, 1, 1)
 
 [node name="git_log" type="ItemList" parent="HBoxContainer"]
-margin_left = 924.0
-margin_right = 1024.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 100, 100 )
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
 select_mode = 1
-script = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = SubResource("1")
 
 [node name="FileDialog" type="FileDialog" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-window_title = "Open a Directory"
 mode = 2
-current_file = "~"
-current_path = "res://~"
+
 [connection signal="item_activated_src" from="HBoxContainer/repo_browser/repo_list" to="HBoxContainer/git_log" method="_on_repo_list_item_activated_src"]
 [connection signal="pressed" from="HBoxContainer/repo_browser/Panel/Button" to="FileDialog" method="show"]
 [connection signal="confirmed" from="FileDialog" to="." method="_on_FileDialog_confirmed"]

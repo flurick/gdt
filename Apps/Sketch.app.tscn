@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bskhmt01ukrun"]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id="5"]
 script/source = "extends Control
 
 
@@ -28,7 +28,7 @@ func _ready():
 	brush.size = 30*randf()
 	brush.color = Color(randf(),randf(),randf())
 	
-	$\"../Time\".connect(\"done\",self,\"reset\")
+	$\"../Time\".connect(\"done\",Callable(self,\"reset\"))
 
 
 func reset():
@@ -39,7 +39,7 @@ func reset():
 func _gui_input(event):
 	
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT: 
+		if event.button_index == MOUSE_BUTTON_LEFT: 
 			accept_event()
 			active = event.pressed
 			
@@ -59,30 +59,22 @@ func _gui_input(event):
 		if active:
 			line.add_point( get_global_mouse_position() )
 		
-		update()
+		queue_redraw()
 
 func _draw():
-	draw_circle( get_global_mouse_position(), brush.size, brush.color.linear_interpolate( Color(0,0,0, 0.8), 0.5) )
+	draw_circle( get_global_mouse_position(), brush.size, brush.color.lerp( Color(0,0,0, 0.8), 0.5) )
 	
 
 
 "
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0, 0, 0, 0.121569 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0, 0, 0, 0.196078 )
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id="4"]
 script/source = "extends ProgressBar
 
 signal done
 
 func _ready():
-	$Timer.connect(\"timeout\",self,\"tick\")
+	$Timer.connect(\"timeout\",Callable(self,\"tick\"))
 
 func tick():
 	value -= 1
@@ -92,56 +84,51 @@ func tick():
 "
 
 [node name="Control" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_clip_content = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.666667, 0.576471, 0.431373, 1 )
+color = Color(0.666667, 0.576471, 0.431373, 1)
 
 [node name="SketchCanvas" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 5 )
+script = SubResource("5")
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 49.0
-custom_styles/panel = SubResource( 1 )
+offset_bottom = 49.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 50
 
 [node name="Button" type="Button" parent="Panel/HBoxContainer"]
-margin_right = 76.0
-margin_bottom = 49.0
+layout_mode = 2
 text = "Give away"
 
 [node name="Statusbar" type="Label" parent="Panel/HBoxContainer"]
-margin_left = 126.0
-margin_top = 17.0
-margin_right = 213.0
-margin_bottom = 31.0
+layout_mode = 2
 text = "Midi device: -"
-align = 1
-valign = 1
 
 [node name="Time" type="ProgressBar" parent="."]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -14.0
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
+offset_top = -14.0
 max_value = 480.0
 value = 480.0
-percent_visible = false
-script = SubResource( 4 )
+script = SubResource("4")
 
 [node name="Timer" type="Timer" parent="Time"]
 autostart = true
-

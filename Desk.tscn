@@ -1,11 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=3 uid="uid://cngpwqlclifr0"]
 
-[ext_resource path="res://wallpaper tools.png" type="Texture" id=1]
-[ext_resource path="res://desktop.png" type="Texture" id=2]
-[ext_resource path="res://Controls/Clock.widget.tscn" type="PackedScene" id=3]
-[ext_resource path="res://tinycirlce.png" type="Texture" id=4]
+[ext_resource type="Texture2D" uid="uid://dqp5sy3ce0ve" path="res://wallpaper tools.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cxnnej1fpard3" path="res://desktop.png" id="2"]
+[ext_resource type="PackedScene" path="res://Controls/Clock.widget.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://fhf1lr25ugus" path="res://tinycirlce.png" id="4"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Control
 
 func _ready():
@@ -13,13 +13,13 @@ func _ready():
 	$overlay.modulate.a = 1
 
 func _process(delta):
-	$overlay.modulate.a = lerp($overlay.modulate.a , 0,0.05)
+	$overlay.modulate.a *= 0.05 #= lerp($overlay.modulate.a, 0, 0.05)
 	if $overlay.modulate.a < 0.1: 
 		$overlay.modulate.a = 0
 		set_process(false)
 "
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id="2"]
 script/source = "extends TextureRect
 
 func _ready():
@@ -29,7 +29,7 @@ func reload():
 	texture = load(\"desktop.png\")
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id="3"]
 script/source = "extends Control
 
 
@@ -39,37 +39,37 @@ func move_window_to_top(window):
 
 func open(app_tscn):
 	
-	var w = load(\"res://Window.tscn\").instance()
-	w.connect(\"req_show_on_top\", self, \"move_window_to_top\")
+	var w = load(\"res://Window.tscn\").instantiate()
+	w.connect(\"req_show_on_top\",Callable(self,\"move_window_to_top\"))
 	add_child(w)
 	
 	load(app_tscn)
 	
 	if load(app_tscn):
-		var app = load(app_tscn).instance()
+		var app = load(app_tscn).instantiate()
 		print(\"Loading: \", app)
-		w.find_node(\"app_container\").add_child(app)
+		w.find_child(\"app_container\").add_child(app)
 		
 		var app_root:Control = app.get_child(0)
-		if app_root.get_property_list().has(\"rect_size\"):
-			w.find_node(\"app_container\").rect_min_size = app_root.rect_size
+		if app_root.get_property_list().has(\"size\"):
+			w.find_child(\"app_container\").custom_minimum_size = app_root.size
 			
 		w.title = app_tscn.split(\".\")[0].split(\"/\")[-1]
 		
-		w.rect_position = w.get_parent_control().rect_size*0.5 - w.rect_size*0.5 #center on screen
-#		w.rect_position = OS.window_size*0.5 #todo: this is weird, no react_size at all on creation? 
+		w.position = w.get_parent_control().size*0.5 - w.size*0.5 #center on screen
+#		w.position = get_window().size*0.5 #todo: this is weird, no react_size at all on creation? 
 	else:
 		print(\"Failed to load: \",app_tscn)
 #		var l = Label.new()
 #		l.text = app_tscn
 #		w.add_child(l)
 	
-#	call_deferred( \"print\", rect_size.x )
-#	print( name, \" rect_size \", rect_size, OS.window_size )
-	#w.rect_position = rect_size*0.5 #Vector2(500,500)#
+#	call_deferred( \"print\", size.x )
+#	print( name, \" size \", size, get_window().size )
+	#w.position = size*0.5 #Vector2(500,500)#
 	
 	var dock_icon = Button.new() 
-	dock_icon.connect(\"pressed\", w, \"toggle_visible\")
+	dock_icon.connect(\"pressed\",Callable(w,\"toggle_visible\"))
 	dock_icon.text = app_tscn.split(\".\")[0].split(\"/\")[-1]
 	$dock/windowlist.add_child(dock_icon)
 	w.dock_icon = dock_icon 
@@ -87,17 +87,14 @@ func _on_start_menu_open(path):
 	open(path)
 "
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.890196, 0.890196, 0.890196, 1 )
-
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id="5"]
 script/source = "extends MenuButton
 
 signal open(path)
 
 
 func _ready():
-	get_popup().connect(\"id_pressed\",self,\"id_pressed\")
+	get_popup().connect(\"id_pressed\",Callable(self,\"id_pressed\"))
 	for file in global.ls(\"res://Apps\").files:
 		if file.match(\"*app.tscn\"):
 			get_popup().add_item( file.split(\".\")[0]  )
@@ -107,33 +104,33 @@ func _ready():
 func id_pressed(id):
 	emit_signal(\"open\", get_popup().get_item_metadata(id))"
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id="6"]
 script/source = "extends Button
 
 func _pressed():
-	get_node(\"/root/world\").find_node(\"PopupPanel_status\").visible = !get_node(\"/root/world\").find_node(\"PopupPanel_status\").visible"
+	get_node(\"/root/world\").find_child(\"PopupPanel_status\").visible = !get_node(\"/root/world\").find_child(\"PopupPanel_status\").visible"
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id="7"]
 script/source = "extends Label
 
 func _ready():
 	text = str(\"v.\", global.sh(\"git\", [\"rev-parse\", \"--short\", \"HEAD\"]).output) 
 "
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id="8"]
 script/source = "extends Button
 
 func _ready():
-#	OS.window_fullscreen = true
+#	get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (true) else Window.MODE_WINDOWED
 	pass
  
 func _pressed():
-	OS.window_fullscreen = !OS.window_fullscreen
+	get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (!((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN))) else Window.MODE_WINDOWED
 
 
 #maybe: fadeout?"
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id="9"]
 script/source = "extends Button
 
 
@@ -143,144 +140,129 @@ func _pressed():
 "
 
 [node name="world" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 1 )
-__meta__ = {
-"_edit_horizontal_guides_": [ 331.716 ],
-"_edit_lock_": true,
-"_edit_vertical_guides_": [ 475.151, 605.377 ]
-}
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("1")
 
 [node name="wallpaper" type="TextureRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 1 )
-expand = true
+texture = ExtResource("1")
+expand_mode = 1
 stretch_mode = 7
 
-[node name="bg" type="TextureRect" parent="." groups=[
-"Desk",
-]]
-modulate = Color( 0.137255, 0.137255, 0.137255, 1 )
+[node name="bg" type="TextureRect" parent="." groups=["Desk"]]
+modulate = Color(0.137255, 0.137255, 0.137255, 1)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 stretch_mode = 2
-script = SubResource( 2 )
+script = SubResource("2")
 
 [node name="Windows" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 3 )
+script = SubResource("3")
 
 [node name="dock" type="HBoxContainer" parent="Windows"]
-self_modulate = Color( 1, 1, 1, 0.321569 )
+self_modulate = Color(1, 1, 1, 0.321569)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -44.0
-margin_bottom = -4.0
-rect_min_size = Vector2( 24, 24 )
+offset_top = -44.0
+offset_bottom = -4.0
 size_flags_horizontal = 5
 size_flags_vertical = 0
 alignment = 1
 
 [node name="windowlist" type="HBoxContainer" parent="Windows/dock"]
-margin_right = 1024.0
-margin_bottom = 40.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="top_panel" type="PanelContainer" parent="."]
-self_modulate = Color( 1, 1, 1, 0.898039 )
+self_modulate = Color(1, 1, 1, 0.898039)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 24, 24 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
+offset_bottom = 38.0
 
 [node name="Left" type="HBoxContainer" parent="top_panel"]
-margin_right = 1024.0
-margin_bottom = 38.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="Space" type="Control" parent="top_panel/Left"]
-margin_right = 8.0
-margin_bottom = 8.0
-rect_min_size = Vector2( 8, 8 )
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="start_menu" type="MenuButton" parent="top_panel/Left"]
-margin_left = 12.0
-margin_right = 53.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 24, 24 )
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 size_flags_horizontal = 0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Start"
-script = SubResource( 5 )
+script = SubResource("5")
 
 [node name="Center" type="HBoxContainer" parent="top_panel"]
-margin_right = 1024.0
-margin_bottom = 38.0
+layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="Clock" parent="top_panel/Center" instance=ExtResource( 3 )]
-margin_left = 473.0
-margin_right = 550.0
-margin_bottom = 38.0
+[node name="Clock" parent="top_panel/Center" instance=ExtResource("3")]
+layout_mode = 2
 size_flags_vertical = 3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="Right" type="HBoxContainer" parent="top_panel"]
-margin_right = 1024.0
-margin_bottom = 38.0
+layout_mode = 2
 mouse_filter = 2
 alignment = 2
 
 [node name="btn_status" type="Button" parent="top_panel/Right"]
-margin_left = 980.0
-margin_right = 1012.0
-margin_bottom = 38.0
+layout_mode = 2
 size_flags_horizontal = 0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "· · ·"
 flat = true
-script = SubResource( 6 )
+script = SubResource("6")
 
 [node name="Space2" type="Control" parent="top_panel/Right"]
-margin_left = 1016.0
-margin_right = 1024.0
-margin_bottom = 8.0
-rect_min_size = Vector2( 8, 8 )
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="PopupPanel_status" type="Panel" parent="."]
 visible = false
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -103.0
-margin_top = 45.0
-margin_right = -5.0
-margin_bottom = 146.0
+offset_left = -103.0
+offset_top = 45.0
+offset_right = -5.0
+offset_bottom = 146.0
 size_flags_horizontal = 12
 size_flags_vertical = 12
 
 [node name="popuparrow" type="Panel" parent="PopupPanel_status"]
-margin_left = 74.0
-margin_top = -11.0
-margin_right = 93.0
-margin_bottom = 8.0
-rect_rotation = 44.9999
+layout_mode = 0
+offset_left = 74.0
+offset_top = -11.0
+offset_right = 93.0
+offset_bottom = 8.0
+rotation = 44.9999
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel_status"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 6
@@ -288,53 +270,43 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="PopupPanel_status/VBoxContainer"]
-margin_top = 9.0
-margin_right = 98.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 25, 25 )
-align = 1
-valign = 1
-autowrap = true
-script = SubResource( 7 )
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+script = SubResource("7")
 
 [node name="btn_fullscreen" type="Button" parent="PopupPanel_status/VBoxContainer"]
-modulate = Color( 0.886275, 1, 0.905882, 1 )
-margin_top = 38.0
-margin_right = 98.0
-margin_bottom = 63.0
-rect_min_size = Vector2( 25, 25 )
+modulate = Color(0.886275, 1, 0.905882, 1)
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 text = "Fullscreen"
-script = SubResource( 8 )
+script = SubResource("8")
 
 [node name="btn_turn_of" type="Button" parent="PopupPanel_status/VBoxContainer"]
-modulate = Color( 1, 0.870588, 0.870588, 1 )
-margin_top = 67.0
-margin_right = 98.0
-margin_bottom = 92.0
-rect_min_size = Vector2( 25, 25 )
+modulate = Color(1, 0.870588, 0.870588, 1)
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 text = "Turn off"
-script = SubResource( 9 )
+script = SubResource("9")
 
 [node name="round_corners_bitmap" type="NinePatchRect" parent="."]
-modulate = Color( 0, 0, 0, 1 )
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 4 )
+texture = ExtResource("4")
 draw_center = false
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="overlay" type="ColorRect" parent="."]
-visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color(0, 0, 0, 1)
+
 [connection signal="open" from="top_panel/Left/start_menu" to="Windows" method="_on_start_menu_open"]

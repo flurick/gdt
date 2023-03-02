@@ -23,9 +23,9 @@ func step():
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -774.0
-margin_bottom = -400.0
-rect_min_size = Vector2( 250, 200 )
+offset_right = -774.0
+offset_bottom = -400.0
+custom_minimum_size = Vector2( 250, 200 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -43,10 +43,10 @@ __meta__ = {
 [node name="Tapes" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 20.0
-margin_right = -20.0
-margin_bottom = -20.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -59,89 +59,89 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Tapes/VBoxContainer"]
-margin_right = 210.0
-margin_bottom = 25.0
+offset_right = 210.0
+offset_bottom = 25.0
 
 [node name="Button2" type="Button" parent="Tapes/VBoxContainer/HBoxContainer"]
-margin_right = 25.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
+offset_right = 25.0
+offset_bottom = 25.0
+custom_minimum_size = Vector2( 25, 25 )
 toggle_mode = true
 text = "1"
 
 [node name="HSlider" type="HSlider" parent="Tapes/VBoxContainer/HBoxContainer" groups=[
 "tape",
 ]]
-margin_left = 29.0
-margin_right = 210.0
-margin_bottom = 16.0
+offset_left = 29.0
+offset_right = 210.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 300.0
 ticks_on_borders = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Tapes/VBoxContainer"]
-margin_top = 29.0
-margin_right = 210.0
-margin_bottom = 54.0
+offset_top = 29.0
+offset_right = 210.0
+offset_bottom = 54.0
 
 [node name="Button2" type="Button" parent="Tapes/VBoxContainer/HBoxContainer2"]
-margin_right = 25.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
+offset_right = 25.0
+offset_bottom = 25.0
+custom_minimum_size = Vector2( 25, 25 )
 toggle_mode = true
 text = "2"
 
 [node name="HSlider" type="HSlider" parent="Tapes/VBoxContainer/HBoxContainer2" groups=[
 "tape",
 ]]
-margin_left = 29.0
-margin_right = 210.0
-margin_bottom = 16.0
+offset_left = 29.0
+offset_right = 210.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 300.0
 ticks_on_borders = true
 script = SubResource( 2 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Tapes/VBoxContainer"]
-margin_top = 58.0
-margin_right = 210.0
-margin_bottom = 83.0
+offset_top = 58.0
+offset_right = 210.0
+offset_bottom = 83.0
 
 [node name="Button2" type="Button" parent="Tapes/VBoxContainer/HBoxContainer3"]
-margin_right = 25.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
+offset_right = 25.0
+offset_bottom = 25.0
+custom_minimum_size = Vector2( 25, 25 )
 toggle_mode = true
 text = "3"
 
 [node name="HSlider" type="HSlider" parent="Tapes/VBoxContainer/HBoxContainer3" groups=[
 "tape",
 ]]
-margin_left = 29.0
-margin_right = 210.0
-margin_bottom = 16.0
+offset_left = 29.0
+offset_right = 210.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 300.0
 ticks_on_borders = true
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="Tapes/VBoxContainer"]
-margin_top = 87.0
-margin_right = 210.0
-margin_bottom = 112.0
+offset_top = 87.0
+offset_right = 210.0
+offset_bottom = 112.0
 
 [node name="Button2" type="Button" parent="Tapes/VBoxContainer/HBoxContainer4"]
-margin_right = 25.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
+offset_right = 25.0
+offset_bottom = 25.0
+custom_minimum_size = Vector2( 25, 25 )
 toggle_mode = true
 text = "4"
 
 [node name="HSlider" type="HSlider" parent="Tapes/VBoxContainer/HBoxContainer4" groups=[
 "tape",
 ]]
-margin_left = 29.0
-margin_right = 210.0
-margin_bottom = 16.0
+offset_left = 29.0
+offset_right = 210.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 300.0
 ticks_on_borders = true
@@ -151,10 +151,10 @@ wait_time = 0.1
 
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
-margin_left = 30.0
-margin_top = 25.0
-margin_right = 30.0
-margin_bottom = 39.0
+offset_left = 30.0
+offset_top = 25.0
+offset_right = 30.0
+offset_bottom = 39.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -168,18 +168,18 @@ bus = "record"
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 21.0
-margin_top = -62.0
-margin_right = -21.0
-margin_bottom = -8.0
+offset_left = 21.0
+offset_top = -62.0
+offset_right = -21.0
+offset_bottom = -8.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="rec" type="Button" parent="HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 62, 0 )
+offset_right = 62.0
+offset_bottom = 54.0
+custom_minimum_size = Vector2( 62, 0 )
 text = "REC"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -190,27 +190,27 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -8.0
-margin_top = -13.0
-margin_right = -3.8147e-06
-margin_bottom = 12.0
-rect_min_size = Vector2( 8, 8 )
+offset_left = -8.0
+offset_top = -13.0
+offset_right = -3.8147e-06
+offset_bottom = 12.0
+custom_minimum_size = Vector2( 8, 8 )
 color = Color( 1, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Control" type="Control" parent="HBoxContainer"]
-margin_left = 66.0
-margin_right = 139.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 73, 0 )
+offset_left = 66.0
+offset_right = 139.0
+offset_bottom = 54.0
+custom_minimum_size = Vector2( 73, 0 )
 
 [node name="Button" type="Button" parent="HBoxContainer"]
-margin_left = 143.0
-margin_right = 205.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 62, 0 )
+offset_left = 143.0
+offset_right = 205.0
+offset_bottom = 54.0
+custom_minimum_size = Vector2( 62, 0 )
 text = "PLAY"
 __meta__ = {
 "_edit_use_anchors_": false

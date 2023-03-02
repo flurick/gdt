@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://fonts/Kalam-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/Kalam-Regular.ttf" type="FontFile" id=2]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 100
 outline_size = 2
 outline_color = Color( 1, 1, 1, 0.164706 )
@@ -12,7 +12,7 @@ font_data = ExtResource( 2 )
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_clip_content = true
+clip_contents = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -22,8 +22,8 @@ anchor_bottom = 1.0
 split_offset = 600
 
 [node name="video" type="TextureRect" parent="HSplitContainer"]
-margin_right = 600.0
-margin_bottom = 600.0
+offset_right = 600.0
+offset_bottom = 600.0
 expand = true
 stretch_mode = 4
 
@@ -31,16 +31,16 @@ stretch_mode = 4
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = -26.0
-margin_right = -10.0
+offset_left = 10.0
+offset_top = -26.0
+offset_right = -10.0
 value = 30.0
 ticks_on_borders = true
 
 [node name="Button" type="Button" parent="HSplitContainer/video"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -29.0
+offset_bottom = -29.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = ">"
@@ -50,9 +50,9 @@ __meta__ = {
 }
 
 [node name="sidepanel" type="Panel" parent="HSplitContainer"]
-margin_left = 612.0
-margin_right = 1024.0
-margin_bottom = 600.0
+offset_left = 612.0
+offset_right = 1024.0
+offset_bottom = 600.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/sidepanel"]
 anchor_right = 1.0
@@ -62,48 +62,48 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="HSplitContainer/sidepanel/VBoxContainer"]
-margin_right = 412.0
-margin_bottom = 14.0
+offset_right = 412.0
+offset_bottom = 14.0
 text = "Playlist:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="playlist" type="ItemList" parent="HSplitContainer/sidepanel/VBoxContainer"]
-margin_top = 18.0
-margin_right = 412.0
-margin_bottom = 572.0
+offset_top = 18.0
+offset_right = 412.0
+offset_bottom = 572.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/sidepanel/VBoxContainer"]
-margin_top = 576.0
-margin_right = 412.0
-margin_bottom = 600.0
+offset_top = 576.0
+offset_right = 412.0
+offset_bottom = 600.0
 
 [node name="Button5" type="Button" parent="HSplitContainer/sidepanel/VBoxContainer/HBoxContainer"]
-margin_right = 165.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
+offset_right = 165.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 24, 24 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 text = "random"
 
 [node name="Button4" type="Button" parent="HSplitContainer/sidepanel/VBoxContainer/HBoxContainer"]
-margin_left = 169.0
-margin_right = 334.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
+offset_left = 169.0
+offset_right = 334.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 24, 24 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 text = "repeat"
 
 [node name="SpinBox" type="SpinBox" parent="HSplitContainer/sidepanel/VBoxContainer/HBoxContainer"]
-margin_left = 338.0
-margin_right = 412.0
-margin_bottom = 24.0
+offset_left = 338.0
+offset_right = 412.0
+offset_bottom = 24.0
 min_value = -10.0
 max_value = 10.0
 suffix = "x"

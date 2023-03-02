@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://37spsehmnb2t"]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://png/painticons.png" type="Texture" id=2]
+[ext_resource type="Texture2D" uid="uid://cixsgyhkbx7o4" path="res://icon.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://d0dxomb5rrgcp" path="res://png/painticons.png" id="2"]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id="2"]
 script/source = "extends Control
 
 
@@ -14,16 +14,16 @@ var just_stop_under = 1
 var multi = -4 #speed of one scroll \"click\"
 var is_grabbed = false
 var is_grabbed_for_rotation = false
-export var debug = false
+@export var debug = false
 
 
 func _process(delta):
 	v *= 0.9
 	if v.length() <= just_stop_under: v = Vector2(0,0)
-	$origin.rect_position += v
+	$origin.position += v
 	
 	r *= 0.99
-	$origin.rect_rotation += r
+	$origin.rotation += r
 	
 
 
@@ -31,8 +31,8 @@ func _gui_input(event):
 	
 	if event is InputEventMouseButton:
 		match event.button_index:
-			BUTTON_MIDDLE:	is_grabbed = event.pressed
-			BUTTON_RIGHT:	is_grabbed_for_rotation = event.pressed
+			MOUSE_BUTTON_MIDDLE:	is_grabbed = event.pressed
+			MOUSE_BUTTON_RIGHT:	is_grabbed_for_rotation = event.pressed
 	
 	if event is InputEventMouseMotion:
 		if is_grabbed:	v = event.relative
@@ -48,22 +48,22 @@ func _gui_input(event):
 	
 	if event is InputEventMouseButton:
 		match event.button_index:
-			BUTTON_WHEEL_DOWN:	v.y += multi
-			BUTTON_WHEEL_UP: 	v.y -= multi
-			BUTTON_WHEEL_RIGHT:	v.x += multi
-			BUTTON_WHEEL_LEFT:	v.x -= multi"
+			MOUSE_BUTTON_WHEEL_DOWN:	v.y += multi
+			MOUSE_BUTTON_WHEEL_UP: 	v.y -= multi
+			MOUSE_BUTTON_WHEEL_RIGHT:	v.x += multi
+			MOUSE_BUTTON_WHEEL_LEFT:	v.x -= multi"
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id="3"]
 script/source = "extends TextureRect
 
 
 var img = Image.new()
 var itex = ImageTexture.new()
-export var fg = Color(1,1,1)
-export var bg = Color(0,0,0)
-export var bg_source = \"\"
-export var random_colors = false
-export var png = \"\"
+@export var fg = Color(1,1,1)
+@export var bg = Color(0,0,0)
+@export var bg_source = \"\"
+@export var random_colors = false
+@export var png = \"\"
 
 
 signal texture_changed()
@@ -75,21 +75,21 @@ func _ready():
 	if random_colors: bg = Color(randf(),randf(),randf())
 	if random_colors: fg = Color(randf(),randf(),randf())
 	
-	var f = File.new()
-	if f.file_exists(png):
+	var f = FileAccess.open(png, FileAccess.READ_WRITE)
+	if f:
 		img.load(png)
 	else:
-		img.create(rect_size.x, rect_size.y, 0, Image.FORMAT_RGB8)
-		img.fill( ColorN(\"grey\") )
+		img.create(size.x, size.y, 0, Image.FORMAT_RGB8)
+		img.fill(Color.GRAY)
 	
 	itex.create_from_image(img)
-	itex.flags = 0
+#	itex.flags = 0
 	texture = itex
 #
-#	rect_scale.x = rect_scale.x
+#	scale.x = scale.x
 #	if img.get_size().x != 0:
-#		rect_scale.x = get_parent().rect_size.x / img.get_size().x
-#	rect_scale.y = rect_scale.x
+#		scale.x = get_parent().size.x / img.get_size().x
+#	scale.y = scale.x
 	
 #	get_node(\"../Label\").text = png
 
@@ -102,7 +102,7 @@ var mode = 0
 func _gui_input(event):
 	
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT: accept_event()
+		if event.button_index == MOUSE_BUTTON_LEFT: accept_event()
 		mode = event.button_index
 		is_drawing = event.pressed
 		edit(event)
@@ -118,10 +118,10 @@ func edit(event):
 	
 #	old_img = img.data
 	
-	img.lock()
-	if mode == BUTTON_LEFT:   img.set_pixel(event.position.x, event.position.y, fg)
-	if mode == BUTTON_RIGHT:  img.set_pixel(event.position.x, event.position.y, bg)
-	img.unlock()
+	false # img.lock() # TODOConverter40, Image no longer requires locking, `false` helps to not break one line if/else, so it can freely be removed
+	if mode == MOUSE_BUTTON_LEFT:   img.set_pixel(event.position.x, event.position.y, fg)
+	if mode == MOUSE_BUTTON_RIGHT:  img.set_pixel(event.position.x, event.position.y, bg)
+	false # img.unlock() # TODOConverter40, Image no longer requires locking, `false` helps to not break one line if/else, so it can freely be removed
 	itex.create_from_image(img)
 	itex.flags = 0
 	texture = itex
@@ -144,334 +144,260 @@ func _on_ColorPickerButton3_color_changed(color):
 	bg =  color
 
 func _exit_tree():
-	img.save_png(png)"
-
-[sub_resource type="ButtonGroup" id=1]
+	img.save_png(png)
+"
 
 [node name="Control" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_clip_content = true
 
 [node name="Statusbar" type="Label" parent="."]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = -20.0
-margin_right = -9.0
-margin_bottom = -5.0
+offset_left = 8.0
+offset_top = -20.0
+offset_right = -9.0
+offset_bottom = -5.0
 text = "Click buttons on canvas to: use tool, grab view, spin view"
 
 [node name="ScrollBox" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 2 )
+script = SubResource("2")
 
 [node name="origin" type="Control" parent="ScrollBox"]
+anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 
 [node name="TextureRect" type="TextureRect" parent="ScrollBox/origin"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 1 )
+scale = Vector2(2, 2)
+texture = ExtResource("1")
 stretch_mode = 4
-script = SubResource( 3 )
+script = SubResource("3")
 
 [node name="tool" type="GridContainer" parent="."]
-editor/display_folded = true
-visible = false
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 60.0
-margin_bottom = 231.0
-custom_constants/vseparation = 0
-custom_constants/hseparation = 0
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 60.0
+offset_bottom = 231.0
 columns = 2
 
 [node name="1" type="Button" parent="tool"]
-margin_right = 26.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="2" type="Button" parent="tool"]
-margin_left = 26.0
-margin_right = 52.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="3" type="Button" parent="tool"]
-margin_top = 22.0
-margin_right = 26.0
-margin_bottom = 44.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="4" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 22.0
-margin_right = 52.0
-margin_bottom = 44.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="9" type="Button" parent="tool"]
-margin_top = 44.0
-margin_right = 26.0
-margin_bottom = 66.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="5" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 44.0
-margin_right = 52.0
-margin_bottom = 66.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="6" type="Button" parent="tool"]
-margin_top = 66.0
-margin_right = 26.0
-margin_bottom = 88.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="7" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 66.0
-margin_right = 52.0
-margin_bottom = 88.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
-pressed = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="8" type="Button" parent="tool"]
-margin_top = 88.0
-margin_right = 26.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="10" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 88.0
-margin_right = 52.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="11" type="Button" parent="tool"]
-margin_top = 110.0
-margin_right = 26.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="12" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 110.0
-margin_right = 52.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="13" type="Button" parent="tool"]
-margin_top = 132.0
-margin_right = 26.0
-margin_bottom = 154.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="14" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 132.0
-margin_right = 52.0
-margin_bottom = 154.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="15" type="Button" parent="tool"]
-margin_top = 154.0
-margin_right = 26.0
-margin_bottom = 176.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="16" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 154.0
-margin_right = 52.0
-margin_bottom = 176.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="17" type="Button" parent="tool"]
-margin_top = 176.0
-margin_right = 26.0
-margin_bottom = 198.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="18" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 176.0
-margin_right = 52.0
-margin_bottom = 198.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="19" type="Button" parent="tool"]
-margin_top = 198.0
-margin_right = 26.0
-margin_bottom = 220.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="20" type="Button" parent="tool"]
-margin_left = 26.0
-margin_top = 198.0
-margin_right = 52.0
-margin_bottom = 220.0
-rect_min_size = Vector2( 16, 16 )
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 action_mode = 0
-group = SubResource( 1 )
 
 [node name="option" type="VBoxContainer" parent="."]
-editor/display_folded = true
-visible = false
-margin_left = 8.0
-margin_top = 238.0
-margin_right = 60.0
-margin_bottom = 314.0
+layout_mode = 0
+offset_left = 8.0
+offset_top = 238.0
+offset_right = 60.0
+offset_bottom = 314.0
 
 [node name="Control" type="Control" parent="option"]
-margin_right = 52.0
-margin_bottom = 16.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control2" type="Control" parent="option"]
-margin_top = 20.0
-margin_right = 52.0
-margin_bottom = 36.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control3" type="Control" parent="option"]
-margin_top = 40.0
-margin_right = 52.0
-margin_bottom = 56.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control4" type="Control" parent="option"]
-margin_top = 60.0
-margin_right = 52.0
-margin_bottom = 76.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="clipframe" type="Control" parent="."]
-modulate = Color( 1, 1, 1, 0.458824 )
-margin_left = 12.0
-margin_top = 17.0
-margin_right = 144.0
-margin_bottom = 137.0
-rect_clip_content = true
+modulate = Color(1, 1, 1, 0.458824)
+clip_contents = true
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 17.0
+offset_right = 144.0
+offset_bottom = 137.0
 mouse_filter = 2
 
 [node name="icons" type="TextureRect" parent="clipframe"]
-margin_top = 3.0
-margin_right = 511.0
-margin_bottom = 344.0
-rect_scale = Vector2( 2, 2 )
+layout_mode = 0
+offset_top = 3.0
+offset_right = 511.0
+offset_bottom = 344.0
+scale = Vector2(2, 2)
 mouse_filter = 2
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 stretch_mode = 3
-

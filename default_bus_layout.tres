@@ -1,13 +1,13 @@
-[gd_resource type="AudioBusLayout" load_steps=6 format=2]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://dqcqyjjjf2ao5"]
 
-[sub_resource type="AudioEffectCompressor" id=1]
+[sub_resource type="AudioEffectCompressor" id="1"]
 resource_name = "Compressor"
 
-[sub_resource type="AudioEffectFilter" id=2]
+[sub_resource type="AudioEffectFilter" id="2"]
 resource_name = "Filter"
 cutoff_hz = 1.0
 
-[sub_resource type="AudioEffectChorus" id=3]
+[sub_resource type="AudioEffectChorus" id="3"]
 resource_name = "Chorus"
 voice_count = 4
 voice/3/delay_ms = 12.0
@@ -23,45 +23,45 @@ voice/4/level_db = 0.0
 voice/4/cutoff_hz = 16000.0
 voice/4/pan = 0.0
 
-[sub_resource type="AudioEffectReverb" id=4]
+[sub_resource type="AudioEffectReverb" id="4"]
 resource_name = "Reverb"
 room_size = 0.5
 
-[sub_resource type="AudioEffectRecord" id=5]
+[sub_resource type="AudioEffectRecord" id="5"]
 resource_name = "Record"
 
 [resource]
-bus/0/effect/0/effect = SubResource( 1 )
+bus/0/effect/0/effect = SubResource("1")
 bus/0/effect/0/enabled = true
-bus/1/name = "a"
+bus/1/name = &"a"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
-bus/1/send = "Master"
-bus/1/effect/0/effect = SubResource( 2 )
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("2")
 bus/1/effect/0/enabled = true
-bus/2/name = "b"
+bus/2/name = &"b"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
-bus/2/send = "Master"
-bus/2/effect/0/effect = SubResource( 3 )
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("3")
 bus/2/effect/0/enabled = true
-bus/3/name = "c"
+bus/3/name = &"c"
 bus/3/solo = false
 bus/3/mute = false
 bus/3/bypass_fx = false
 bus/3/volume_db = 0.0
-bus/3/send = "Master"
-bus/3/effect/0/effect = SubResource( 4 )
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("4")
 bus/3/effect/0/enabled = true
-bus/4/name = "record"
+bus/4/name = &"record"
 bus/4/solo = false
 bus/4/mute = false
 bus/4/bypass_fx = false
 bus/4/volume_db = 3.6
-bus/4/send = "Master"
-bus/4/effect/0/effect = SubResource( 5 )
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("5")
 bus/4/effect/0/enabled = true

@@ -27,8 +27,8 @@ __meta__ = {
 size_flags_vertical = 0
 
 [node name="Keys2" parent="." instance=ExtResource( 2 )]
-margin_left = 354.0
-margin_right = 704.0
+offset_left = 354.0
+offset_right = 704.0
 size_flags_vertical = 0
 [connection signal="note_on" from="Keys" to="." method="_on_Keys_note_on"]
 [connection signal="note_on" from="Keys2" to="." method="_on_Keys2_note_on"]

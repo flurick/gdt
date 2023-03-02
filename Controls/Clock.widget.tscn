@@ -11,14 +11,14 @@ func _ready():
 var month_of = [\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"]
 var day_of = [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\",\"Sunday\",\"today\",\"tomorrow\",\"yesterday\",\"fortnight\"]
 func _on_Timer_timeout():
-	var the = OS.get_datetime()
+	var the = Time.get_datetime_dict_from_system()
 #	text = str( the.hour, \":\", the.minute, \":\", the.second, \" \", day_of[the.weekday].substr(0,3), \" the \", the.day, \"th of \", month_of[the.month].substr(0,3) )
 	text = str( the.hour, \":\", the.minute )
 "
 
 [node name="Clock" type="Button"]
-margin_right = 77.0
-margin_bottom = 24.0
+offset_right = 77.0
+offset_bottom = 24.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/focus = SubResource( 1 )
@@ -27,6 +27,6 @@ flat = true
 script = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
-pause_mode = 2
+process_mode = 2
 autostart = true
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

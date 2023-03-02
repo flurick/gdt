@@ -1,18 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://c4kpdo3fvc34i"]
 
-[ext_resource path="res://png/max.png" type="Texture" id=1]
-[ext_resource path="res://png/cross.png" type="Texture" id=2]
+[ext_resource type="Texture2D" uid="uid://cenjiblb1b630" path="res://png/max.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://1538tn0ybnvx" path="res://png/cross.png" id="2"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.996078, 0.996078, 0.996078, 1 )
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color( 0, 0, 0, 0.0392157 )
-shadow_size = 25
-
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id="2"]
 script/source = "extends Control
 
 var held = {\"l\":false, \"r\":false, \"m\":false}
@@ -21,32 +12,35 @@ signal req_show_on_top (window)
 
 var dock_icon
 
-var title = \"App\" setget set_title
+var title = \"App\" : set = set_title
 func set_title(arg):
 	title = arg
-	find_node(\"title\").text = arg
+	find_child(\"title\").text = arg
+
 
 func toggle_visible():
 	visible = !visible
 
+
 func _ready():
-	rect_min_size = grid
-	rect_position = get_parent_control().rect_size*0.5# - rect_size*0.5
-#	$V/header.rect_min_size = grid
+	custom_minimum_size = grid
+	position = get_parent_control().size*0.5# - size*0.5
+#	$V/header.custom_minimum_size = grid
 	
-	find_node(\"close\").connect(\"pressed\", self, \"close\")
-	find_node(\"size\").connect(\"pressed\", self, \"maximize\")
+	find_child(\"close\").connect(\"pressed\",Callable(self,\"close\"))
+	find_child(\"size\").connect(\"pressed\",Callable(self,\"maximize\"))
 
 
-var corner = false
+var is_corner = false
 func corner(event):
 	
 	if event is InputEventMouseButton:
 		match event.button_index:
-			BUTTON_LEFT:  corner = event.pressed
+			MOUSE_BUTTON_LEFT:  is_corner = event.pressed
 
 	if event is InputEventMouseMotion:
-		if corner:  rect_size += event.relative
+		if is_corner:  size += event.relative
+
 
 func close():
 	#play animation?
@@ -56,8 +50,9 @@ func close():
 
 
 func maximize():
-	rect_position = Vector2(64,64)
-	rect_size = get_parent_control().rect_size - Vector2(64,64)*2
+	position = Vector2(64,64)
+	size = get_parent_control().size - Vector2(64,64)*2
+
 
 func _gui_input(event):
 	
@@ -65,43 +60,40 @@ func _gui_input(event):
 	#pressed
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
-			BUTTON_LEFT:  emit_signal(\"req_show_on_top\", self)
-			BUTTON_MIDDLE:  pass
-			BUTTON_RIGHT:  pass
+			MOUSE_BUTTON_LEFT:  emit_signal(\"req_show_on_top\", self)
+			MOUSE_BUTTON_MIDDLE:  pass
+			MOUSE_BUTTON_RIGHT:  pass
 		
 	#held
 	if event is InputEventMouseButton:
 		match event.button_index:
-			BUTTON_LEFT:  held.l = event.pressed
-			BUTTON_MIDDLE:  held.m = event.pressed
-			BUTTON_RIGHT:  held.r = event.pressed
+			MOUSE_BUTTON_LEFT:  held.l = event.pressed
+			MOUSE_BUTTON_MIDDLE:  held.m = event.pressed
+			MOUSE_BUTTON_RIGHT:  held.r = event.pressed
 	
 	#drag
 	if event is InputEventMouseMotion:
-		if held.l:  rect_position += event.relative
+		if held.l:  position += event.relative
 		if held.m:  pass
-		if held.r:  rect_size += event.relative
+		if held.r:  size += event.relative
 	
 	#release
 	if event is InputEventMouseButton and not event.pressed:
 		match event.button_index:
-			BUTTON_LEFT:  if event.control: rect_position = rect_position.snapped(grid)
-			BUTTON_MIDDLE:  pass
-			BUTTON_RIGHT:  if event.control: rect_size = rect_size.snapped(grid)
+			MOUSE_BUTTON_LEFT:  if Input.is_key_pressed(KEY_CTRL): position = position.snapped(grid)
+			MOUSE_BUTTON_MIDDLE:  pass
+			MOUSE_BUTTON_RIGHT:  if Input.is_key_pressed(KEY_CTRL): size = size.snapped(grid)
 
 
 
 func _on_header_gui_input(event):
 	if event is InputEventMouseButton\\
-	and event.doubleclick:
+	and event.double_click:
 		maximize()
-		
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id="3"]
 script/source = "extends Control
-
-signal _gui_input(event)
 
 func _gui_input(event):
 #	emit_signal(\"_gui_input\", event)
@@ -111,149 +103,125 @@ func _gui_input(event):
 #	#pressed
 #	if event is InputEventMouseButton:
 #		match event.button_index:
-#			BUTTON_LEFT:  get_parent().held.l = true
+#			MOUSE_BUTTON_LEFT:  get_parent().held.l = true
 "
 
-[sub_resource type="StyleBoxEmpty" id=4]
-
 [node name="Window" type="Panel"]
-margin_right = 403.0
-margin_bottom = 266.0
-rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 1 )
-script = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(50, 50)
+offset_right = 403.0
+offset_bottom = 266.0
+script = SubResource("2")
 
 [node name="Corner" type="Control" parent="."]
+anchors_preset = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -15.0
-margin_top = -15.0
-margin_right = 15.0
-margin_bottom = 14.0
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 14.0
 mouse_default_cursor_shape = 12
-script = SubResource( 3 )
+script = SubResource("3")
 
 [node name="ColorRect" type="ColorRect" parent="Corner"]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0.0862745, 0.894118, 1, 1 )
+color = Color(0.0862745, 0.894118, 1, 1)
 
 [node name="V" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="header" type="Control" parent="V"]
-margin_right = 403.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-rect_clip_content = true
-mouse_filter = 1
+clip_contents = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 
 [node name="center" type="HBoxContainer" parent="V/header"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 0
+mouse_filter = 2
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="title" type="Button" parent="V/header/center"]
-margin_left = 183.0
-margin_right = 220.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 24, 24 )
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 mouse_filter = 1
-custom_styles/focus = SubResource( 4 )
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 disabled = true
 text = "App"
 flat = true
 
 [node name="right" type="HBoxContainer" parent="V/header"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 0
+mouse_filter = 2
 alignment = 2
 
 [node name="size" type="TextureButton" parent="V/header/right"]
-margin_left = 363.0
-margin_right = 403.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-texture_normal = ExtResource( 1 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("1")
 stretch_mode = 3
 
 [node name="ColorRect2" type="ColorRect" parent="V/header/right/size"]
 visible = false
 show_behind_parent = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 40, 40 )
-color = Color( 0.690196, 0.788235, 0.894118, 1 )
+color = Color(0.690196, 0.788235, 0.894118, 1)
 
 [node name="left" type="HBoxContainer" parent="V/header"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -1.43195
-margin_bottom = -1.43195
-mouse_filter = 2
+offset_top = -1.43195
+offset_bottom = -1.43195
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 0
+mouse_filter = 2
 
 [node name="close" type="TextureButton" parent="V/header/left"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-texture_normal = ExtResource( 2 )
-expand = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("2")
 stretch_mode = 3
 
 [node name="ColorRect" type="ColorRect" parent="V/header/left/close"]
 visible = false
 show_behind_parent = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 40, 40 )
-color = Color( 0.894118, 0.690196, 0.690196, 1 )
+color = Color(0.894118, 0.690196, 0.690196, 1)
 
 [node name="header_shadow" type="ColorRect" parent="V"]
-margin_top = 40.0
-margin_right = 403.0
-margin_bottom = 41.0
-rect_min_size = Vector2( 1, 1 )
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
 size_flags_horizontal = 3
-color = Color( 0.843137, 0.843137, 0.843137, 1 )
+color = Color(0.843137, 0.843137, 0.843137, 1)
 
 [node name="app_container" type="Container" parent="V"]
-margin_top = 41.0
-margin_right = 403.0
-margin_bottom = 266.0
-rect_clip_content = true
-mouse_filter = 2
+clip_contents = true
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
+
 [connection signal="gui_input" from="V/header" to="." method="_on_header_gui_input"]
