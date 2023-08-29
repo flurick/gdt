@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://cybx4ji638d63"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cpsj4"]
+top_radius = 0.48
+height = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_vgsoj"]
+size = Vector3(5, 1, 5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+mesh = SubResource("CylinderMesh_cpsj4")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19747, 0, 0)
+mesh = SubResource("CylinderMesh_cpsj4")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20782, 0, 0)
+mesh = SubResource("CylinderMesh_cpsj4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.541978, 0)
+mesh = SubResource("BoxMesh_vgsoj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.88467, 0.466217, 0, -0.466217, 0.88467, 0, 1.09809, 2.42787)
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.82817, -0.0231666)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.12941, -0.482963, 0.5, 0.224144, 0.836516, 0, -0.965926, 0.258819, 0, 2.64003, 0)
+light_color = Color(1, 0.905882, 0.85098, 1)
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_blend_splits = true

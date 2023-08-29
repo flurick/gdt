@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dixyhcr3cvdpx"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Control
 
 signal note_on(name)
@@ -29,69 +29,35 @@ func _ready():
 
 "
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.898438, 0.898438, 0.898438, 1 )
-border_width_left = 1
-border_width_top = 1
-border_color = Color( 0, 0, 0, 1 )
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 2
-
-[sub_resource type="StyleBoxFlat" id=3]
-content_margin_left = 20.0
-content_margin_right = 10.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color( 0, 0, 0, 1 )
-corner_radius_top_left = 99
-corner_radius_top_right = 99
-corner_radius_bottom_right = 99
-corner_radius_bottom_left = 99
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 1, 1, 1, 1 )
-border_blend = true
-corner_radius_top_left = 99
-corner_radius_top_right = 99
-corner_radius_bottom_right = 99
-corner_radius_bottom_left = 99
-shadow_color = Color( 1, 1, 1, 0.0784314 )
-shadow_size = 10
-
 [node name="Keys" type="Control"]
-offset_right = 350.0
-offset_bottom = 150.0
-custom_minimum_size = Vector2( 350, 150 )
 clip_contents = true
-script = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(350, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 376.0
+offset_bottom = 150.0
+script = SubResource("1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(350, 150)
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -198.0
-offset_bottom = -43.0
-custom_minimum_size = Vector2( 350, 150 )
-custom_constants/separation = 0
+offset_right = 3.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="black" type="HBoxContainer" parent="VBoxContainer"]
-offset_right = 350.0
-offset_bottom = 50.0
-custom_constants/separation = 0
+layout_mode = 2
 
 [node name="Button1" type="Button" parent="VBoxContainer/black"]
-offset_right = 75.0
-offset_bottom = 50.0
-custom_minimum_size = Vector2( 75, 50 )
-custom_styles/normal = SubResource( 2 )
-align = 0
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
 
 [node name="CenterContainer" type="HBoxContainer" parent="VBoxContainer/black/Button1"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
@@ -101,37 +67,29 @@ offset_bottom = -10.0
 mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/black/Button1/CenterContainer"]
-offset_right = 21.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/black/Button1/CenterContainer"]
-offset_left = 25.0
-offset_right = 55.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="dot" type="Panel" parent="VBoxContainer/black/Button1/CenterContainer/CenterContainer2"]
-offset_right = 30.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 30, 30 )
-mouse_filter = 2
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 3 )
+mouse_filter = 2
 
 [node name="Button3" type="Button" parent="VBoxContainer/black"]
-offset_left = 75.0
-offset_right = 125.0
-offset_bottom = 50.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
-align = 0
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="CenterContainer" type="HBoxContainer" parent="VBoxContainer/black/Button3"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
@@ -142,35 +100,29 @@ mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/black/Button3/CenterContainer"]
 visible = false
-offset_right = 35.0
-offset_bottom = 50.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/black/Button3/CenterContainer"]
-offset_right = 30.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="dot" type="Panel" parent="VBoxContainer/black/Button3/CenterContainer/CenterContainer2"]
-offset_right = 30.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 30, 30 )
-mouse_filter = 2
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 3 )
+mouse_filter = 2
 
 [node name="Button2" type="Button" parent="VBoxContainer/black"]
-offset_left = 125.0
-offset_right = 200.0
-offset_bottom = 50.0
-custom_minimum_size = Vector2( 75, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
 
 [node name="CenterContainer2" type="HBoxContainer" parent="VBoxContainer/black/Button2"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
@@ -180,36 +132,29 @@ offset_bottom = -10.0
 mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/black/Button2/CenterContainer2"]
-offset_right = 30.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="dot" type="Panel" parent="VBoxContainer/black/Button2/CenterContainer2/CenterContainer"]
-offset_right = 30.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 30, 30 )
-mouse_filter = 2
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 3 )
+mouse_filter = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/black/Button2/CenterContainer2"]
-offset_left = 34.0
-offset_right = 34.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="Button4" type="Button" parent="VBoxContainer/black"]
-offset_left = 200.0
-offset_right = 275.0
-offset_bottom = 50.0
-custom_minimum_size = Vector2( 75, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
 
 [node name="CenterContainer2" type="HBoxContainer" parent="VBoxContainer/black/Button4"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
@@ -219,36 +164,29 @@ offset_bottom = -10.0
 mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/black/Button4/CenterContainer2"]
-offset_right = 21.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/black/Button4/CenterContainer2"]
-offset_left = 25.0
-offset_right = 55.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="dot" type="Panel" parent="VBoxContainer/black/Button4/CenterContainer2/CenterContainer2"]
-offset_right = 30.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 30, 30 )
-mouse_filter = 2
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 3 )
+mouse_filter = 2
 
 [node name="Button5" type="Button" parent="VBoxContainer/black"]
-offset_left = 275.0
-offset_right = 350.0
-offset_bottom = 50.0
-custom_minimum_size = Vector2( 75, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
 
 [node name="CenterContainer2" type="HBoxContainer" parent="VBoxContainer/black/Button5"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
@@ -258,219 +196,142 @@ offset_bottom = -10.0
 mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/black/Button5/CenterContainer2"]
-offset_right = 30.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="dot" type="Panel" parent="VBoxContainer/black/Button5/CenterContainer2/CenterContainer"]
-offset_right = 30.0
-offset_bottom = 30.0
-custom_minimum_size = Vector2( 30, 30 )
-mouse_filter = 2
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 3 )
+mouse_filter = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/black/Button5/CenterContainer2"]
-offset_left = 34.0
-offset_right = 34.0
-offset_bottom = 30.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="white" type="HBoxContainer" parent="VBoxContainer"]
-offset_top = 50.0
-offset_right = 350.0
-offset_bottom = 150.0
-custom_minimum_size = Vector2( 50, 100 )
-custom_constants/separation = 0
+custom_minimum_size = Vector2(50, 100)
+layout_mode = 2
 
 [node name="Button1" type="Button" parent="VBoxContainer/white"]
-offset_right = 50.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="Container" type="MarginContainer" parent="VBoxContainer/white/Button1"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2( 50, 50 )
 mouse_filter = 2
-custom_constants/offset_right = 10
-custom_constants/offset_top = 10
-custom_constants/offset_left = 10
-custom_constants/offset_bottom = 10
 
 [node name="dot" type="Panel" parent="VBoxContainer/white/Button1/Container"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 90.0
-custom_minimum_size = Vector2( 25, 25 )
-mouse_filter = 2
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 4 )
+mouse_filter = 2
 
 [node name="Button2" type="Button" parent="VBoxContainer/white"]
-offset_left = 50.0
-offset_right = 100.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="Container" type="MarginContainer" parent="VBoxContainer/white/Button2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2( 50, 50 )
 mouse_filter = 2
-custom_constants/offset_right = 10
-custom_constants/offset_top = 10
-custom_constants/offset_left = 10
-custom_constants/offset_bottom = 10
 
 [node name="dot" type="Panel" parent="VBoxContainer/white/Button2/Container"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 90.0
-custom_minimum_size = Vector2( 25, 25 )
-mouse_filter = 2
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 4 )
+mouse_filter = 2
 
 [node name="Button3" type="Button" parent="VBoxContainer/white"]
-offset_left = 100.0
-offset_right = 150.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="Container" type="MarginContainer" parent="VBoxContainer/white/Button3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2( 50, 50 )
 mouse_filter = 2
-custom_constants/offset_right = 10
-custom_constants/offset_top = 10
-custom_constants/offset_left = 10
-custom_constants/offset_bottom = 10
 
 [node name="dot" type="Panel" parent="VBoxContainer/white/Button3/Container"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 90.0
-custom_minimum_size = Vector2( 25, 25 )
-mouse_filter = 2
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 4 )
+mouse_filter = 2
 
 [node name="Button4" type="Button" parent="VBoxContainer/white"]
-offset_left = 150.0
-offset_right = 200.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="Container" type="MarginContainer" parent="VBoxContainer/white/Button4"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2( 50, 50 )
 mouse_filter = 2
-custom_constants/offset_right = 10
-custom_constants/offset_top = 10
-custom_constants/offset_left = 10
-custom_constants/offset_bottom = 10
 
 [node name="dot" type="Panel" parent="VBoxContainer/white/Button4/Container"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 90.0
-custom_minimum_size = Vector2( 25, 25 )
-mouse_filter = 2
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 4 )
+mouse_filter = 2
 
 [node name="Button5" type="Button" parent="VBoxContainer/white"]
-offset_left = 200.0
-offset_right = 250.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="Container" type="MarginContainer" parent="VBoxContainer/white/Button5"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2( 50, 50 )
 mouse_filter = 2
-custom_constants/offset_right = 10
-custom_constants/offset_top = 10
-custom_constants/offset_left = 10
-custom_constants/offset_bottom = 10
 
 [node name="dot" type="Panel" parent="VBoxContainer/white/Button5/Container"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 90.0
-custom_minimum_size = Vector2( 25, 25 )
-mouse_filter = 2
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 4 )
+mouse_filter = 2
 
 [node name="Button6" type="Button" parent="VBoxContainer/white"]
-offset_left = 250.0
-offset_right = 300.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="Container" type="MarginContainer" parent="VBoxContainer/white/Button6"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2( 50, 50 )
 mouse_filter = 2
-custom_constants/offset_right = 10
-custom_constants/offset_top = 10
-custom_constants/offset_left = 10
-custom_constants/offset_bottom = 10
 
 [node name="dot" type="Panel" parent="VBoxContainer/white/Button6/Container"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 90.0
-custom_minimum_size = Vector2( 25, 25 )
-mouse_filter = 2
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 4 )
+mouse_filter = 2
 
 [node name="Button7" type="Button" parent="VBoxContainer/white"]
-offset_left = 300.0
-offset_right = 350.0
-offset_bottom = 100.0
-custom_minimum_size = Vector2( 50, 50 )
-custom_styles/normal = SubResource( 2 )
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [node name="Container" type="MarginContainer" parent="VBoxContainer/white/Button7"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_minimum_size = Vector2( 50, 50 )
 mouse_filter = 2
-custom_constants/offset_right = 10
-custom_constants/offset_top = 10
-custom_constants/offset_left = 10
-custom_constants/offset_bottom = 10
 
 [node name="dot" type="Panel" parent="VBoxContainer/white/Button7/Container"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 90.0
-custom_minimum_size = Vector2( 25, 25 )
-mouse_filter = 2
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 4 )
+mouse_filter = 2

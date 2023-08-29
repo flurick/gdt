@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://37spsehmnb2t"]
 
-[ext_resource type="Texture2D" uid="uid://cixsgyhkbx7o4" path="res://icon.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://d0dxomb5rrgcp" path="res://png/painticons.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://coakjkpxt0v7g" path="res://icon.png" id="1_yac6u"]
+[ext_resource type="Texture2D" uid="uid://bc0mkywg51pch" path="res://png/painticons.png" id="2_5bpbu"]
 
 [sub_resource type="GDScript" id="2"]
 script/source = "extends Control
@@ -153,6 +153,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Statusbar" type="Label" parent="."]
 layout_mode = 0
@@ -183,7 +185,7 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 scale = Vector2(2, 2)
-texture = ExtResource("1")
+texture = ExtResource("1_yac6u")
 stretch_mode = 4
 script = SubResource("3")
 
@@ -399,5 +401,5 @@ offset_right = 511.0
 offset_bottom = 344.0
 scale = Vector2(2, 2)
 mouse_filter = 2
-texture = ExtResource("2")
+texture = ExtResource("2_5bpbu")
 stretch_mode = 3

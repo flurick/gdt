@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4kpdo3fvc34i"]
 
-[ext_resource type="Texture2D" uid="uid://cenjiblb1b630" path="res://png/max.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://1538tn0ybnvx" path="res://png/cross.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cprnohng2r1nh" path="res://png/max.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://ddrssqwoedrv7" path="res://png/cross.png" id="2"]
 
 [sub_resource type="GDScript" id="2"]
 script/source = "extends Control
@@ -48,10 +48,17 @@ func close():
 	queue_free()
 
 
-
+var floating_pos:Vector2
+var floating_size:Vector2
 func maximize():
-	position = Vector2(64,64)
-	size = get_parent_control().size - Vector2(64,64)*2
+	var max_pos = Vector2(0,38)
+	var max_size = get_parent_control().size - Vector2(0,38+38)
+	
+	if position == max_pos and size == max_size:
+		position = floating_pos; size = floating_size
+	else:
+		floating_pos = position; floating_size = size
+		position = max_pos; size = max_size
 
 
 func _gui_input(event):

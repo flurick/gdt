@@ -40,32 +40,25 @@ func _gui_input(event):
 	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT: 
+			
 			accept_event()
 			active = event.pressed
 			
-			
-			
-			line = Line2D.new()
-			line.width = brush.size
-			line.begin_cap_mode = Line2D.LINE_CAP_ROUND
-			line.end_cap_mode = Line2D.LINE_CAP_ROUND
-			line.joint_mode = Line2D.LINE_JOINT_ROUND
-			line.default_color = brush.color
-			line.add_point( get_global_mouse_position() )
-			line.add_point( get_global_mouse_position()+Vector2(0,1) )
-			add_child(line)
+			if event.pressed:
+				line = Line2D.new()
+				line.width = brush.size
+				line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+				line.end_cap_mode = Line2D.LINE_CAP_ROUND
+				line.joint_mode = Line2D.LINE_JOINT_ROUND
+				line.default_color = brush.color
+				line.add_point( event.position )
+				add_child(line)
 	
 	if event is InputEventMouseMotion:
 		if active:
-			line.add_point( get_global_mouse_position() )
+			line.add_point( event.position )
 		
 		queue_redraw()
-
-func _draw():
-	draw_circle( get_global_mouse_position(), brush.size, brush.color.lerp( Color(0,0,0, 0.8), 0.5) )
-	
-
-
 "
 
 [sub_resource type="GDScript" id="4"]
@@ -89,6 +82,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -103,6 +98,7 @@ anchor_bottom = 1.0
 script = SubResource("5")
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 49.0
@@ -121,6 +117,7 @@ layout_mode = 2
 text = "Midi device: -"
 
 [node name="Time" type="ProgressBar" parent="."]
+visible = false
 layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0

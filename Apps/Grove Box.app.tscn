@@ -1,21 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://ctjijbwt13opg"]
 
-[ext_resource path="res://Tape Machine.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Piano.tscn" type="PackedScene" id=2]
-[ext_resource path="res://fonts/Kalam-Light3D.ttf" type="FontFile" id=3]
-
-[sub_resource type="FontFile" id=1]
-size = 48
-font_data = ExtResource( 3 )
+[ext_resource type="PackedScene" uid="uid://t415te8qvafb" path="res://Tape Machine.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://Piano.tscn" id="2"]
 
 [node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
@@ -24,121 +21,106 @@ offset_right = -20.0
 offset_bottom = -11.0
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array( 859.9, 530.821, 980.247, 530.222, 994.034, 525.489, 1002.4, 518.846, 1009.51, 507.753, 1011.38, 490.705, 1009.13, 476.81, 1001.8, 464.361, 991.392, 454.546, 976.056, 448.794, 925.762, 445.8, 905.684, 439.048, 894.627, 429.035, 888.543, 413.567, 886.844, 388.321 )
-default_color = Color( 0.984314, 0.682353, 0.207843, 1 )
+position = Vector2(322, 142)
+scale = Vector2(0.65492, 0.65492)
+points = PackedVector2Array(936, 532, 980.247, 530.222, 994.034, 525.489, 1002.4, 518.846, 1009.51, 507.753, 1011.38, 490.705, 1009.13, 476.81, 1001.8, 464.361, 991.392, 454.546, 976.056, 448.794, 925.762, 445.8, 905.684, 439.048, 894.627, 429.035, 888.543, 413.567, 886.844, 388.321)
+default_color = Color(0.984314, 0.682353, 0.207843, 1)
 
 [node name="Line2D2" type="Line2D" parent="."]
-position = Vector2( 1.80505, 1.80502 )
-points = PackedVector2Array( 825.189, 385.175, 823.632, 405.803, 813.705, 419.341, 797.46, 425.658, 772.19, 425.658, 171.123, 426.561, 146.756, 425.658, 130.511, 413.926, 120.583, 399.486, 117.212, 380.509, 124.211, 178.73 )
-default_color = Color( 0.4, 0.501961, 1, 1 )
+position = Vector2(1.80505, 1.80502)
+points = PackedVector2Array(825.189, 385.175, 823.632, 405.803, 813.705, 419.341, 797.46, 425.658, 772.19, 425.658, 171.123, 426.561, 146.756, 425.658, 130.511, 413.926, 120.583, 399.486, 117.212, 380.509, 118.195, 327.195, 119.195, 276.195)
+default_color = Color(0.4, 0.501961, 1, 1)
 
-[node name="Control" parent="." instance=ExtResource( 2 )]
+[node name="Control" parent="." instance=ExtResource("2")]
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 offset_left = -353.67
-offset_top = -150.0
+offset_top = -183.0
 offset_right = 350.33
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="Control2" parent="." instance=ExtResource( 1 )]
+[node name="Control2" parent="." instance=ExtResource("1")]
+anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_right = 250.0
-offset_bottom = 200.0
+offset_left = 30.0
+offset_top = 22.0
+offset_right = 280.0
+offset_bottom = 272.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = 752.33
 offset_top = 36.0
 offset_right = 982.33
 offset_bottom = 395.0
-color = Color( 0.788235, 0.266667, 0.266667, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color(0.788235, 0.266667, 0.266667, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 29.0
-custom_fonts/font = SubResource( 1 )
+grow_horizontal = 2
+grow_vertical = 2
 text = "DON*T 
 PANIC"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/Label"]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 280.0
 offset_right = 211.0
 offset_bottom = 336.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button" type="Button" parent="ColorRect/Label/HBoxContainer"]
-offset_right = 45.0
-offset_bottom = 56.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Button2" type="Button" parent="ColorRect/Label/HBoxContainer"]
-offset_left = 49.0
-offset_right = 94.0
-offset_bottom = 56.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Button3" type="Button" parent="ColorRect/Label/HBoxContainer"]
-offset_left = 98.0
-offset_right = 143.0
-offset_bottom = 56.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Button4" type="Button" parent="ColorRect/Label/HBoxContainer"]
-offset_left = 147.0
-offset_right = 195.0
-offset_bottom = 56.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/Label"]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 153.0
 offset_right = 211.0
 offset_bottom = 261.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VSlider" type="VSlider" parent="ColorRect/Label/HBoxContainer2"]
-offset_right = 45.0
-offset_bottom = 108.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VSlider2" type="VSlider" parent="ColorRect/Label/HBoxContainer2"]
-offset_left = 49.0
-offset_right = 94.0
-offset_bottom = 108.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VSlider4" type="VSlider" parent="ColorRect/Label/HBoxContainer2"]
-offset_left = 98.0
-offset_right = 143.0
-offset_bottom = 108.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VSlider3" type="VSlider" parent="ColorRect/Label/HBoxContainer2"]
-offset_left = 147.0
-offset_right = 195.0
-offset_bottom = 108.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

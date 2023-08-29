@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bqy81wwvky17k"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Control
 
 
@@ -10,54 +10,63 @@ func _ready():
 	add_child(http_request)
 	http_request.connect(\"request_completed\",Callable(self,\"_http_request_completed\"))
 	
-	var error = http_request.request(\"https://httpbin.org/get\")
+	var error = http_request.request(\"https://news.ycombinator.com\")
 	if error != OK:  push_error(\"An error occurred in the HTTP request.\")
 
 
 func _http_request_completed(result, response_code, headers, body):
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(body.get_string_from_utf8())
-	var response = test_json_conv.get_data()
-	$RichTextLabel.text = response.headers[\"User-Agent\"]
+	var response_is_json = test_json_conv.get_data()
+	if response_is_json:
+		$RichTextLabel.text = response_is_json.headers[\"User-Agent\"]
+	else:
+		$RichTextLabel.text = body.get_string_from_utf8()
+#		var parser = XMLParser.new()
+#		parser.open_buffer( body.get_string_from_utf8() )
+#
+#		while parser.read() != ERR_FILE_EOF:
+#			for i in parser.get_attribute_count():
+#				print(parser.get_attribute_value(i), parser.get_attribute_name(i) )
 "
 
 [node name="Hypertext" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.439216, 0.439216, 0.439216, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
-offset_left = 420.0
-offset_top = 288.0
-offset_right = 604.0
-offset_bottom = 312.0
+layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="CenterContainer/HBoxContainer"]
-offset_right = 150.0
-offset_bottom = 24.0
-custom_minimum_size = Vector2( 150, 0 )
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 
 [node name="Button" type="Button" parent="CenterContainer/HBoxContainer"]
-offset_left = 154.0
-offset_right = 184.0
-offset_bottom = 24.0
+layout_mode = 2
 text = "Go"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "test"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "Loading HackerNews"
